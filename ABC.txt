@@ -1,1 +1,2 @@
 Checking git file to commit.
+Changing content of file.
