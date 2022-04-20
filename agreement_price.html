@@ -1,0 +1,3422 @@
+<HTML>
+<HEAD>
+
+<!-- 
+Template path : templates\Agreement\Agreement_price.html  1212
+Author :
+Purpose :
+Referred Program : 
+Folder No. : 4
+Page No. : 20
+-->
+<meta http-equiv="Pragma" content="no-cache">
+<TITLE>|^Price Results^|</TITLE>
+<!--LINK rel="stylesheet" type="text/css" href="/EngDev/GenScripts94/qa.css">
+<LINK rel="stylesheet" type="text/css" href="/EngDev/GenScripts94/Rentpro.css"-->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html;"  charset="UTF-8">
+<LINK rel="stylesheet" type="text/css" href="/EngDev/GenScripts94/Def.css">
+<LINK rel="stylesheet" type="text/css" href="/EngDev/GenScripts94/tabs.css">
+<script language="javascript" src="/EngDev/GenScripts94/GenFunctions.js"></script>
+<script language="javascript" src="/EngDev/GenScripts94/ModalPopups.js"></script>
+<script language="JavaScript" src="/EngDev/GenScripts94/calendar.js"></script>
+<script language="JavaScript" src="/EngDev/GenScripts94/DateFunctions.js"></script>
+<script language="JavaScript" src="/EngDev/GenScripts94/DomTable.js"></script>
+<script language="JavaScript" src="/EngDev/GenScripts94/tabview.js"></script>
+<script type="text/javascript" src="/EngDev/GenScripts94/tool_tip.js"></script>
+<script language="JavaScript" src="/EngDev/GenScripts94/contextmenu.js"></script>		
+<script language="javascript" type="text/javascript">
+</script>
+<script src="/EngDev/GenScripts94/jQuerycontextMenu/jquery-1.8.2.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="/EngDev/GenScripts94/tool_tip.js"></script>
+<style type="text/css">
+<!--
+.xstooltip
+{
+ 	visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    font: normal 8pt sans-serif;
+    padding: 3px;
+    border: solid 1px;
+    background-repeat: repeat;
+  background-image: url(images/blue.png);
+	background-color:#dededc;
+	width:550px;
+	
+}
+   -->
+</style>
+
+
+<script language="javascript">
+var AccessMenuRights='<!$MG_AccessMenuRights>';
+var Decimal_Separator;
+var win;
+var winBody;
+var Folder_No =4 ;
+var Page_No = 20;
+var Flagsubmit='Y';
+//setInterval("CheckClosePopup()",1000);
+function ClosePopUp()
+{
+document.forms[0].PopUpOpen.value=0;
+if(win.isOpen)
+win.hide();
+}
+
+function PrintDrv()
+{
+  document.all.NoPrint.style.display='None'; 
+  document.all.DontPrintButtons.style.display='None'; 
+  window.print();  
+  document.all.NoPrint.style.display='';		
+  document.all.DontPrintButtons.style.display=''; 
+}
+
+function PrintCust()
+{
+  document.all.NoPrint.style.display='None';
+  document.all.NoTotal.style.display='None';
+  document.all.Drvonly.style.display='None'; 
+  document.all.DontPrintButtons.style.display='None'; 
+  window.print();  
+  document.all.NoPrint.style.display='';	
+  document.all.NoTotal.style.display='';
+  document.all.Drvonly.style.display=''; 
+  document.all.DontPrintButtons.style.display=''; 
+}
+
+function PrintAll()
+{ 
+	alert('|^Please Set The Printer Property To Landscape^|');
+  document.all.DontPrintButtons.style.display='None'; 
+  window.print();   
+  document.all.DontPrintButtons.style.display=''; 
+}
+function RemarkPopup(Which,srcId,evt1)
+{
+<!-- 1 For Extras 2 Insurance 3 Insuranc Without vat -->
+//alert(evt1);
+if(Which==1)
+xstooltip_show(srcId,'Extras',0,0,evt1);
+else if(Which==2 || Which==3)
+xstooltip_show(srcId,'Insurance',0,0,evt1);
+else  if(Which==4)
+xstooltip_show(srcId,'Fuel',0,0,evt1);
+else  if(Which==5)
+xstooltip_show(srcId,'Traffic',0,0,evt1);
+else  if(Which==6)
+xstooltip_show(srcId,'AllInvoices',0,0,evt1);
+else  if(Which==7)
+xstooltip_show(srcId,'TollFee',0,0,evt1);
+else if(Which==8)
+xstooltip_show(srcId,'Others',0,0,evt1);
+else if(Which==9)
+{
+xstooltip_show(srcId,'PMTOVRem',0,0,evt1);
+document.getElementById("InvoiceRemark").focus();
+}
+}
+function HideToolTipWindow(WinId){
+	xstooltip_hide(WinId);
+}		
+
+function Changebalance(ExchRate)
+{ var PaymentDueVal,DrvBalaceInVal,CustBalaceInVal;
+  var Exch_Rate=ReturnStandValue(ExchRate,Decimal_Separator); // Sneha : Used to solve Decimal Separator problem
+
+if(!isNaN(Exch_Rate))
+{
+  with(document.forms[0])
+	{
+/*Abhijeet Checking For Decimal Separator Problem
+	var DrvBalance ='<!$MG_DrvBalance>';
+	alert(DrvBalance);
+	AmountChangeDecFormat(1,DrvBalance);
+	
+	alert(DrvBalance);
+	if('<!$MG_DrvBalance>'!='')
+	{ DrvBalaceInVal=0;
+		DrvBalaceInVal=parseFloat(DrvBalance)*parseFloat(<!$MG_AgrCurRateLocal>)/parseFloat(ExchRate);
+		DrvBalaceIn.value=DrvBalaceInVal.toFixed(2);																																												 
+	}
+*/
+	if('<!$MG_DrvBalance>'!='')
+	{ DrvBalaceInVal=0;
+		DrvBalaceInVal=parseFloat(ReturnStandValue('<!$MG_DrvBalance>',Decimal_Separator))*parseFloat(ReturnStandValue('<!$MG_AgrCurRateLocal>',Decimal_Separator))/parseFloat(Exch_Rate);
+		DrvBalaceIn.value=ReturnLocalValue(DrvBalaceInVal.toFixed(document.getElementById("DecimalPart").value),Decimal_Separator);																																												 
+	}
+
+<!$MGIF_NotDriverAgreement>	
+	if('<!$MG_CustBalance>'!='')
+	{ CustBalaceInVal=0;
+		CustBalaceInVal=parseFloat(ReturnStandValue('<!$MG_CustBalance>',Decimal_Separator))*parseFloat(ReturnStandValue('<!$MG_AgrCurRateLocal>',Decimal_Separator))/parseFloat(Exch_Rate);
+		CustBalaceIn.value=ReturnLocalValue(CustBalaceInVal.toFixed(document.getElementById("DecimalPart").value),Decimal_Separator);
+	}
+	if('<!$MG_TotalBalance>'!='')
+	{	PaymentDueVal=0;
+		PaymentDueVal=parseFloat(ReturnStandValue('<!$MG_TotalBalance>',Decimal_Separator))*parseFloat(ReturnStandValue('<!$MG_AgrCurRateLocal>',Decimal_Separator))/parseFloat(Exch_Rate);
+	 PaymentDue.value=ReturnLocalValue(PaymentDueVal.toFixed(document.getElementById("DecimalPart").value),Decimal_Separator);
+	}
+<!$MGENDIF>
+
+ }
+ }
+}
+function sendmessage()
+{
+  with(document.forms[0])
+  {
+  	 reasonvalue =RentalReason.value
+	if(CompanyProgramCode.value==20)
+         {
+		if(reasonvalue=='C' || reasonvalue=='Z' || reasonvalue=='R' || reasonvalue=='S')
+        	 {
+		alert("|^Please Load Demo Contract^|");
+		 }
+		if(reasonvalue=='N')
+	         {
+		alert("|^Please Load Rental Agreement^|");
+		 }
+	 }
+	 
+	 
+  }
+}
+
+function CalculateTotalDepositAndSecurity()
+{
+with(document.forms[0])
+	{
+	 var xml1;
+      var loadAcc;		  
+	var urlOc = '[X]CalTotalDepositSecurity&Arguments=-A'+DocumentNo.value+',-A1';	
+      /*
+	  var xmltemp = new ActiveXObject("Msxml2.XMLHTTP.3.0");
+      xmltemp.open("GET",urlOc, false);			 
+      xmltemp.send();			
+      xml1 = xmltemp.responseXML;
+	  */
+	  xml1 = loadDefXml(urlOc);
+	// alert(xml1.xml);
+      resultNode = xml1.getElementsByTagName('Root').item(0); 
+ 	   if(resultNode.getAttribute('TotalAmt') )
+            {
+			Total_DepSecurity_Val.value=resultNode.getAttribute('TotalAmt');
+			
+			}
+			
+	}
+}
+
+function PrintDoc()
+{
+  
+	sendmessage();
+	with (document.forms[0])
+	{
+     	
+                if(CompanyFormat.value==111)
+				{
+						 NewWin('/Magic94Scripts/mgrqispi94.dll?APPNAME=RentProWeb&PRGNAME=DlvryPickupGatpassPrint&ARGUMENTS=-A,-A'+DocumentNo.value+',-AN,-A','GatePass','GatePass','LEFT=10,top=10,HEIGHT=600,WIDTH=600,scrollbars=1,resizable=1');
+				}
+	if((CompanyProgramCode.value==102 || CompanyProgramCode.value==122) && OnlyDrvAgr_YN.value=='Y' && PrintRuleChkEWN.value!='N')
+	CalculateTotalDepositAndSecurity();
+		if(Agr_Total_Val.value>0)
+	var amt=Agr_Total_Val.value;
+	
+			if((CompanyProgramCode.value==102 || CompanyProgramCode.value==122) && OnlyDrvAgr_YN.value=='Y' && PrintRuleChkEWN.value!='N' &&    parseFloat(Total_DepSecurity_Val.value) < parseFloat(amt))
+         {
+                   if(PrintRuleChkEWN.value=='E' && Override_PrintRule_YN.value!='Y')
+                    {
+                    alert('|^Not allow to print as total amount is greater than deposit/security^|');
+                      return false;
+                    }
+                   if(PrintRuleChkEWN.value=='W'  || (PrintRuleChkEWN.value=='E' &&  Override_PrintRule_YN.value=='Y'))
+                    {
+                    if(!confirm("|^Not allow to print as total amount is greater than deposit/security,Are You Sure? Do You Want To Proceed^|"))
+                    {
+                      return false;
+                    }
+										}
+	         }
+//		NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=<!$MG_program>&Arguments=-A'+UserID.value+',-A'+DocumentNo.value+',-A'+DebitorPrice.value+',-A1,-A,-A,-A,-A,-AY','Print','Print<!$MG_program>','left=50,top=10,HEIGHT=700,WIDTH=920,scrollbars=1');
+//	Date:28/07/2009 may
+
+//	NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=<!$MG_program>&Arguments=-A'+UserID.value+',-A'+DocumentNo.value+',-A'+PrintPrice.value+',-A1,-A,-A,-A,-A,-AY','Print','Print<!$MG_program>','left=50,top=10,HEIGHT=700,WIDTH=920,scrollbars=1');
+		if(ValidateAgreementSave())
+		NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=<!$MG_program>&Arguments=-A'+UserID.value+',-A'+DocumentNo.value+',-A'+PrintPrice.value+',-A1,-A,-A,-A,-A,-A'+createm.value,'Print','Print<!$MG_program>','resizable=1,channelmode=yes,scrollbars=1');
+			//if(CompanyFormat.value==89)
+		//NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=ManualAgrCorrection&Arguments=-A'+DocumentNo.value,'Print','ManualAgrCorrection','resizable=1,channelmode=yes,scrollbars=1');
+		
+		if(CompanyFormat.value==49)
+		{
+		 		NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=[P]PrintTrafficViolation&Arguments=-A'+DocumentNo.value,'Print1','Print1','left=120,top=40,HEIGHT=600,WIDTH=600,scrollbars=1,resize=no');
+		}
+		if(CompanyFormat.value==32)	
+		{
+		 	 NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=PrintAddDocAvis&Arguments=-A'+DocumentNo.value,'Print2','Print2','left=120,top=40,HEIGHT=600,WIDTH=800,scrollbars=1');
+		}
+		<!$MGIF_EurentBorderPass>
+		 	 NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=PrintBorderPassPermission&Arguments=-A'+DocumentNo.value,'Print2','Print2','left=120,top=40,HEIGHT=600,WIDTH=800,scrollbars=1');
+		<!$MGENDIF>
+		if(CompanyFormat.value==1)	
+		{
+		<!$MGIF_ForeignBrCheckIn>
+		 	 NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=[P]FaxToForeignBranch&Arguments=-A'+DocumentNo.value,'Print3','FrBrCheckin','left=120,top=40,HEIGHT=600,WIDTH=800,scrollbars=1');
+		<!$MGENDIF>
+		}					
+	}
+}
+
+
+function MessageScreen()
+{
+ with (document.forms[0])
+ {
+ 			NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=PrintAgreementProceed&Arguments=-A'+UserID.value+',-A'+DocumentNo.value+',-A'+PrintPrice.value,'Print3','FrBrCheckin','left=120,top=40,HEIGHT=600,WIDTH=800,scrollbars=1');							 
+ }
+}
+
+
+function ViewDamages(UnitNo,callfrom)
+{
+	with (document.forms[0])
+	{
+	 	VehUnitNo=UnitNo;
+//	Eurominia
+//		NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=VehicleDamageReport&Arguments=-N<!$MG_UnitNo>,-A<!$MG_DocumentNo>,-A,-A<!$MG_LanguageCode>','ChargeDetails','Damages1','left=100,top=100,HEIGHT=550,WIDTH=800');
+//		NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=VehicleDamageReport&Arguments=-N<!$MG_UnitNo>,-A<!$MG_DocumentNo>,-A,-A<!$MG_EnglishLanguageCode>','ChargeDetails','Damages2','left=100,top=100,HEIGHT=550,WIDTH=800');		
+//	ELSE
+		//NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=VehicleDamageReport&Arguments=-A'+VehUnitNo+',-A<!$MG_DocumentNo>,-A,-A<!$MG_LanguageCode>','ChargeDetails','Damages1','resizable=1,channelmode=yes,scrollbars=1');
+		if(CompanyFormat.value==125)
+			NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=VehicleDamageReport&Arguments=-A'+VehUnitNo+',-A<!$MG_DocumentNo>,-A,-A<!$MG_LanguageCode>,-A,-A1','ChargeDetails','Damages1','resizable=1,channelmode=yes,scrollbars=1');
+		else
+		{
+		
+		if(CompanyFormat.value==144)
+		{
+		if(callfrom=='I')
+		var subAgrNo= LastSonNo.value-1;
+		else
+		var subAgrNo= LastSonNo.value;
+		NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=ShowDamageTyreMakeThread&Arguments=-A,-A'+callfrom+',-A<!$MG_DocumentNo>,-A'+subAgrNo+',-A'+VehUnitNo,'Fleet','Proceed','resizable=1,channelmode=yes');
+		}
+		else
+			NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=VehicleDamageReport&Arguments=-A'+VehUnitNo+',-A<!$MG_DocumentNo>,-A,-A<!$MG_LanguageCode>','ChargeDetails','Damages1','resizable=1,channelmode=yes,scrollbars=1');
+		}
+
+//	ENDIF
+	}
+}
+
+function Payment(DrvCust)//D For Drv C For Cust
+{	
+	with(document.forms[0])
+	{
+		if(ValidateAgreementSave())
+		NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=PaymentsAgreement&Arguments=-A'+BranchCode.value+',-A'+DrvCust+',-A,-A'+DocumentNo.value,'PaymentInfo','PaymentInfo','left=120,top=40,HEIGHT=495,WIDTH=850,scrollbars=0,resizable=1');
+	}
+	
+}
+
+
+
+function Messages()
+{
+  with(document.forms[0])
+  {
+	if(closewindow.value!=1)
+	{
+	alert("|^Invoice Is Already Created^|");
+	window.close();
+	}
+		 <!$MGIF_FromCheckIn&Securityfound>
+		 alert('|^There are unreturned Securities on Agreement , Please return it before closing the Agreement.^|');
+	 <!$MGENDIF>	
+
+<!$MGIF_NotImportResWithAmt>	 	 
+	if(RateNo.value=='')
+	{
+		if(CourtesyAgr.value!='Y')
+			{
+			alert("|^Rate Not Found^|");
+			}
+	
+	 <!$MGIF_FromCheckIn>
+	 Invoice_BT.disabled=true;
+	 <!$MGENDIF>
+	}
+	else
+	{
+	 <!$MGIF_FromCheckIn>
+	 Invoice_BT.disabled=false;
+	 <!$MGENDIF>
+	}
+
+	if(CourtesyAgr.value!='Y')
+  {
+	 	if(TariffIsDefault.value == 'True')
+		alert("|^Rate Not Found, Default Tariff Used^|");
+
+		if(DiscountGreater.value == 'True')
+		{
+		 if(DiscApprovalPending.value=='True')
+		 {
+		  alert("|^Discount Is Greater Than Allowed, Discount Pending For Approval^|");
+		 }
+		 else
+		 {
+		 alert("|^Discount Is Greater Than Allowed, System Adjusted^|");
+		}
+	 }
+		
+		if(DiscountNotAllowed.value == 'True')
+		alert("|^Discount Removed, Not Allowed For Rate^|");
+		
+		
+	}	
+<!$MGELSE>
+	 <!$MGIF_FromCheckIn>
+	 Invoice_BT.disabled=false;
+	 <!$MGENDIF>
+<!$MGENDIF>
+		
+		if(CourtesyAgr.value!='Y')
+  {
+	  if(ReductionGreater.value == 'True')
+		alert("|^Reduction Is Greater Than Allowed, System Adjusted^|");	
+		
+		if(VatChanged.value == 'True')
+		alert("|^VAT Percent has been changed to ^|<!$MG_ChangedVAT>");
+	}
+	
+
+	
+	if(ShowPrices.value=='N')
+	Rate_BT.disabled=true;
+	
+	if(ShowSaveBT.value=='N')
+	{
+	<!$MGIF_FrmCheckout>
+	 Save_BT.disabled=true;
+	 <!$MGENDIF>
+	 Rate_BT.disabled=true;
+	
+	}	
+			
+	}
+}
+function CheckRate()
+{
+	
+ 				 with (document.forms[0])
+ 				 {
+				 
+				 <!$MGIF_NotImportResWithAmt>	 	 
+					if(RateNo.value=='')
+					{
+								
+							<!$MGIF_FromCheckIn>
+							Invoice_BT.disabled=true;
+							<!$MGENDIF>
+					}
+					else
+					{
+							 <!$MGIF_FromCheckIn>
+							 Invoice_BT.disabled=false;
+							 <!$MGENDIF>
+					}
+				<!$MGELSE>
+							 <!$MGIF_FromCheckIn>
+							 Invoice_BT.disabled=false;
+							 <!$MGENDIF>
+				<!$MGENDIF>
+				 }
+}
+
+
+
+function checkForm()
+{
+	with (document.forms[0])
+	{
+				
+		if(CompanyProgramCode.value==135)
+		{
+			if(!checkDamageInsuExist())
+					//If Intercompany Agreement and DriverName is blank then ask for the NRT Driver Name else Save Agreement
+					if(RentalReason.value=='I' && NRTDriverLName.value=='')
+									NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=GetNRTDriverName','Driver','Driver','left=120,top=40,HEIGHT=300,WIDTH=600,resizable=1');
+				else
+									saveform();																										 
+		}
+		else
+		{
+			if(PassAuthYN.value == 'Y' && CompanyProgramCode.value==134)
+			{
+			
+			 UserPasswordValidationSubmit('N','N');
+			 
+			}
+			else
+			{
+				if(RentalReason.value=='I' && NRTDriverLName.value=='')
+					NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=GetNRTDriverName','Driver','Driver','left=120,top=40,HEIGHT=300,WIDTH=600,resizable=1');
+				else
+					saveform();
+			}
+		}
+	}
+}
+
+function checkDamageInsuExist(){
+
+	with(document.forms[0])
+	{
+	
+	var ValidateXML;		    
+			var urlOc = 'CommonXmlPrg&Arguments=-A48,-A'+DocumentNo.value;
+			ValidateXML = loadDefXml(urlOc);
+			//alert(getXMLStringFromObject(ValidateXML))
+			var  InsuXmlRoot = ValidateXML.getElementsByTagName("Root").item(0);
+			if($(InsuXmlRoot.getElementsByTagName("RecordExists").item(0)).text())
+			var RecFound=$(InsuXmlRoot.getElementsByTagName("RecordExists").item(0)).text();
+			else
+			RecFound='';
+			if(RecFound =="N")
+			{
+					alert("|^Please Select Damage Waiver Insurance^|")
+					return true;
+			}
+			else
+			return false;
+	}
+	
+}
+
+var AGRRecSavedXMLVal_YN = 'N';
+function saveAndCheckAGRSave(){
+	with(document.forms[0]){
+	//alert(AmountDue1.value+"---"+AmountPaid1.value+"---"+Balance1.value)
+	if(CompanyProgramCode.value==115)
+		GetAmount();
+		
+		
+		if(AllowInternalAgr.value=='Y' && AgrType.value=='I' && AgrSubType.value != 'R')
+		{
+			AGRRecSavedXMLVal_YN = 'Y';
+			if(NotEmptyField(ITransferNo.value))
+			{
+				NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=TransModifyAgreement&Arguments=-A,-A'+document.forms[0].IUnitNo.value+',-A'+document.forms[0].ILicNo.value+',-A'+document.forms[0].ITransferNo.value+',-A,-A,,-A,-A,-A'+document.forms[0].DocumentNo.value+',-A'+document.forms[0].ApprovalNo.value+',-A'+SubExtDtl.value+',-AI','ResultsSave','Save','left=120,top=40,HEIGHT=140,WIDTH=300');
+			}
+			else
+			{
+				NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=TransCheckOut&Arguments=-A'+document.forms[0].ILicNo.value+',-A'+document.forms[0].IUnitNo.value+',-A,-A,-A'+document.forms[0].DocumentNo.value+',-A'+document.forms[0].ApprovalNo.value+',-A'+SubExtDtl.value+',-AI','ResultsSave','Save','left=120,top=40,HEIGHT=140,WIDTH=300');
+			}
+		}
+		else
+		{
+		
+			var link1 = 'ConfirmResAgrQuo&Arguments=-A'+document.forms[0].CalledFrom.value+',-A'+document.forms[0].DocumentNo.value+',-A'+document.forms[0].UserID.value+',-A,-A'+ApprovalNo.value+',-A'+NRTDriverLName.value+',-A'+NRTDriverFName.value+',-A,-A'+SubExtDtl.value+',-A,-A,-A,-A,-A,-A,-A,-A,-AY,-A,-A,-A,-A,-A,-A,-A,-A'+AmountDue1.value+',-A'+AmountPaid1.value+',-A'+Balance1.value+',-A,-A,-A,-A'+createm.value+',-A,-A,-A'+SendSMSAltayyar.value;
+			var xml =loadDefXml(link1);
+			var ResultList = xml.getElementsByTagName("Result");
+			if(ResultList.length > 0)
+			{
+				AGRRecSavedXMLVal_YN = ResultList[0].getAttribute("RecordSaved");
+			}
+			if(AGRRecSavedXMLVal_YN=='Y')
+			{
+				TammRecordId.value = ResultList[0].getAttribute("TammRecordId");
+				TammCalledFrom.value = ResultList[0].getAttribute("TammCalledFrom");
+				if(CompanyProgramCode.value==124)
+				{
+					SendSMSAltayyar.value = ResultList[0].getAttribute("SendSMSALT");
+					DocType.value = ResultList[0].getAttribute("DocType");
+				}
+			}
+		}
+	}
+}
+
+function saveform()
+{
+ 		with (document.forms[0])
+    {
+				 if(CompanyFormat.value == 134)
+				 {
+				if(RentalReason.value=='I' && NRTDriverLName.value=='')
+					NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=GetNRTDriverName','Driver','Driver','left=120,top=40,HEIGHT=300,WIDTH=600,resizable=1');
+				}
+		 		 if(CheckAgrSubExtras('1'))
+				 {
+				 
+				 if((DebCreditLimitChkEWN.value == 'E' || DebCreditLimitChkEWN.value == 'W') && RecordStatus.value == '')
+				 {
+					var TotalDebitorDebitValue_1 = TotalDebitorDebitValue.value;
+					if(TotalDebitorDebitValue_1 == '')
+						TotalDebitorDebitValue_1 = 0;
+					var AuthorizationTotal_1 = AuthorizationTotal.value;
+					if(AuthorizationTotal_1 == '')
+						AuthorizationTotal_1 = 0;
+					var DebitorCreditLimit_1 = DebitorCreditLimit.value;
+					if(DebitorCreditLimit_1 == '')
+						DebitorCreditLimit_1 = 0;
+						
+					if((parseFloat(TotalDebitorDebitValue_1) + parseFloat(AuthorizationTotal_1)) > parseFloat(DebitorCreditLimit_1)){
+						if(DebCreditLimitChkEWN.value == 'E'){
+							alert("|^Debitor Credit Limit Exceeds^|");
+							//Make_DisableButton(false);
+							return false;
+						}
+						if(DebCreditLimitChkEWN.value == 'W'){
+							alert("|^Debitor Credit Limit Exceeds^|");
+						}
+					}
+				 }
+				
+						 if(CompanyFormat.value == 124)
+						{
+							SendSMS_BT.disabled=false;
+							SendMail_BT.disabled=false;
+						}	
+				 
+				if(CompanyFormat.value == 124 || CompanyFormat.value == 89 || CompanyFormat.value == 111 || CompanyFormat.value == 127 || CompanyFormat.value == 116 || CompanyFormat.value == 123 || CompanyFormat.value == 102 || CompanyFormat.value == 134  || CompanyFormat.value == 145 || CompanyFormat.value == 146 || CompanyFormat.value == 147 || CompanyFormat.value == 148 || CompanyFormat.value == 149 || CompanyFormat.value == 150 || CompanyFormat.value == 151 || CompanyFormat.value == 152){
+					saveAndCheckAGRSave();
+					Flagsubmit='N';
+					if(AGRRecSavedXMLVal_YN == "Y" && AgrType.value!='I'){
+						alert("|^Information Has Been Saved^|");
+						if(CompanyFormat.value == 124)
+						{
+						 if(SMSByTemplate.value=='Y' && SendSMS.value=='Y' && AllowedPosSMS.value!='Y')
+						{
+							if(!confirm('|^Do You Want To Send SMS?^|'))
+							{
+								//Make_DisableButton(false);
+								SendSMSAltayyar.value='N';
+								//return true;
+							}
+							else
+								SendSMSAltayyar.value='Y';
+						}
+						if(SMSByTemplate.value=='Y' && SendSMS.value=='Y' && AllowedPosSMS.value=='Y')
+						{
+							SendSMSAltayyar.value='Y';
+						}
+						if(parseInt(DocType.value)==20 && SMSByTemplate.value=='Y' && AllowedPosSMS.value!='Y')
+						{
+							if(!confirm('Do You Want To Send SMS?'))
+							{
+								//Make_DisableButton(false);
+								SendSMSAltayyar.value='N';
+								
+							}
+							else
+								SendSMSAltayyar.value='Y';
+						}
+						if(SendSMSAltayyar.value=='Y')
+						{
+							var winhandle1=NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=SendSmsUsingTemplate&Arguments=-A'+DocType.value+',-A,-A'+DocumentNo.value+',-A'+DocumentNo.value+',-A,-A1,-A'+DriverCode.value+',-A,-A,-A,-A,-A1,-A','AgrChkIn','AgrChkIn','left=120,top=40,HEIGHT=650,WIDTH=720,resizable=1'); 
+						}
+					}	
+
+						
+						if(NotEmptyField(TammRecordId.value))
+						{
+						var winhandle1=NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=TammTransactionQAProceed&Arguments=-A'+TammCalledFrom.value+',-A'+document.forms[0].DocumentNo.value+',-A,-A,-A,-A'+TammRecordId.value+',-AY','YardMasterCreateModify13','ModifyCancel11','left=40,top=45,HEIGHT=360,WIDTH=950,scrollbars=1,status=0,resizable=1'); 
+						}
+						if(CompanyFormat.value==111 && RecordStatus.value == '')
+			             {
+				 NewWin('/Magic94Scripts/mgrqispi94.dll?APPNAME=RentProWeb&PRGNAME=DlvryPickupGatpassPrint&ARGUMENTS=-A,-A'+DocumentNo.value+',-AN,-A','GatePass','GatePass','LEFT=10,top=10,HEIGHT=600,WIDTH=600,scrollbars=1,resizable=1');
+			             }
+						
+						
+					}
+				}
+				else{
+					AGRRecSavedXMLVal_YN = 'Y';
+				}
+					
+				if(AGRRecSavedXMLVal_YN == "Y"){
+				
+					AgrSub_BT.disabled=true;
+
+					<!$MGIF_ShowCancelButton>
+					<!$MGELSE>
+						CancelBT.disabled=true;
+					<!$MGENDIF>
+
+					EnableButton(true);
+					
+					<!$MGIF_AllowKeyOI1>
+						KeyAndOI.disabled=false; 
+					<!$MGENDIF>
+					
+						Print_BT.disabled=false; 
+						SendSMS_BT.disabled=false;
+						SendMail_BT.disabled=false;
+						<!$MGIF_HertzEnhance>
+						EmailDocument.disabled=false;
+						<!$MGENDIF>
+					<!$MGIF_FrmCheckout>
+					
+					
+					<!$MGIF_ALLOWCHKLIST>
+						VehChkList_BT.disabled=false;
+					<!$MGENDIF>
+					
+					<!$MGENDIF>
+
+					UpDocs.disabled=false;
+					BMB_BT.disabled=false;
+
+
+					<!$MGIF_CreateDelEnabled>
+						CreateDeliveryPickup_Btn.disabled=false; 
+					<!$MGENDIF>
+					
+					<!$MGIF_CourtesyDisabled>
+					
+					<!$MGELSE>
+					
+					<!$MGIF_ShowPayment>
+						if(CompanyProgramCode.value==8 || CompanyProgramCode.value==100 || CompanyProgramCode.value==116)
+						{
+							Payment_BT.disabled=false;
+						}
+						<!$MGIF_NotBranchMonthly>
+							Payment_BT.disabled='';
+							BMB_BT.disabled=true;
+						<!$MGENDIF>
+					if(CompanyProgramCode.value!=130 && CompanyProgramCode.value!=132&& CompanyProgramCode.value!=137)
+					{
+							<!$MGIF_CustomerAgr>
+								Customer_Payment_BT.disabled='';
+							<!$MGENDIF> 
+					}
+					else
+					{
+							<!$MGIF_CustomerAgr>
+								Customer_Payment_BT.disabled=true;
+							<!$MGENDIF>
+					}
+					
+					<!$MGENDIF>
+					
+					<!$MGIF_AgrValidForMonthlyBilling>
+						BMB_BT.disabled=false;
+					<!$MGENDIF>
+					
+					<!$MGENDIF>
+
+					<!$MGIF_AllowDriverPrebilling>
+						document.forms[0].DPB_BT.disabled=false;
+						
+					if(CompanyFormat.value!=125 && CompanyFormat.value!=142)
+					{
+						Payment_BT.disabled=true;
+					}
+					<!$MGENDIF>
+
+					if(PassAuthYN.value == 'Y' && CompanyProgramCode.value!=134)
+					{
+						if(CompanyProgramCode.value==102)
+						 {
+						 UserPasswordValidationSubmit('Y',Flagsubmit);
+						 }
+						 else
+						 {
+						 UserPasswordValidationSubmit('N',Flagsubmit);
+						 }
+					}
+
+					else
+					{
+						 if(CompanyProgramCode.value==127 && document.getElementById("CheckYoungDrvInsRqP").value=='Y')	
+						{
+
+						if(!CheckYoungDrvInsDocattached())
+						return false;
+
+						}
+					
+                      if(CompanyFormat.value != 124 && CompanyFormat.value != 89 && CompanyFormat.value != 111 && CompanyFormat.value != 127 && CompanyFormat.value != 116 && CompanyFormat.value != 123 && CompanyFormat.value != 102 && CompanyFormat.value != 134  && CompanyFormat.value != 145 && CompanyFormat.value != 146 && CompanyFormat.value != 147 && CompanyFormat.value != 148 && CompanyFormat.value != 149 && CompanyFormat.value != 150 && CompanyFormat.value != 151 && CompanyFormat.value != 152){
+					  
+							WhindowSubmit()
+						}
+					}
+			}
+			else{
+					alert("|^Error Occured During Saving, Please Try Again^|");
+			}
+		}		
+	}
+}
+
+function Submit()
+{
+	with (document.forms[0])
+	{
+		ProceedClicked.value="1";
+		if(AllowInternalAgr.value=='Y' && AgrType.value=='I' && AgrSubType.value != 'R')
+		{
+			if(NotEmptyField(ITransferNo.value))
+			{
+				NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=TransModifyAgreement&Arguments=-A,-A'+document.forms[0].IUnitNo.value+',-A'+document.forms[0].ILicNo.value+',-A'+document.forms[0].ITransferNo.value+',-A,-A,,-A,-A,-A'+document.forms[0].DocumentNo.value+',-A'+document.forms[0].ApprovalNo.value+',-A'+SubExtDtl.value+',-AI','ResultsSave','Save','left=120,top=40,HEIGHT=140,WIDTH=300');
+			}
+			else
+			{
+				NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=TransCheckOut&Arguments=-A'+document.forms[0].ILicNo.value+',-A'+document.forms[0].IUnitNo.value+',-A,-A,-A'+document.forms[0].DocumentNo.value+',-A'+document.forms[0].ApprovalNo.value+',-A'+SubExtDtl.value+',-AI','ResultsSave','Save','left=120,top=40,HEIGHT=140,WIDTH=300');
+			}
+		}
+		else
+		{	
+              if(CompanyFormat.value==111  && RecordStatus.value == '')
+			{
+				 NewWin('/Magic94Scripts/mgrqispi94.dll?APPNAME=RentProWeb&PRGNAME=DlvryPickupGatpassPrint&ARGUMENTS=-A,-A'+DocumentNo.value+',-AN,-A','GatePass','GatePass','LEFT=10,top=10,HEIGHT=600,WIDTH=600,scrollbars=1,resizable=1');
+			}
+			if(CompanyFormat.value==130 || CompanyFormat.value==137 || CompanyFormat.value==156)
+			{
+				<!$MGIF_NotExchange>
+					NewWin(	'/Magic94Scripts/mgrqispi94.dll?APPNAME=RentProWeb&PRGNAME=PrintGatePassBest&ARGUMENTS=-A'+document.forms[0].DocumentNo.value+',-A,-A,-A,-A'+document.forms[0].ILicNo.value+',-A,-A2,-A'+document.forms[0].LastSonNo.value,'GatePass','GatePass','LEFT=10,top=10,HEIGHT=600,WIDTH=600,scrollbars=1,resizable=1');
+				<!$MGENDIF>
+
+			}
+//			alert(AmountDue1.value+"---"+AmountPaid1.value+"---"+Balance1.value)
+			if(CompanyProgramCode.value==115)
+				GetAmount();
+				OptToSendSMSFun();
+			NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=ConfirmResAgrQuo&Arguments=-A'+document.forms[0].CalledFrom.value+',-A'+document.forms[0].DocumentNo.value+',-A'+document.forms[0].UserID.value+',-A,-A'+ApprovalNo.value+',-A'+NRTDriverLName.value+',-A'+NRTDriverFName.value+',-A,-A'+SubExtDtl.value+',-A,-A,-A,-A,-A,-A,-A,-A,-A,-A'+MobileNo.value+',-A'+SMSMessage.value+',-A'+SMSReceiverName.value+',-A'+GatewayNo.value+',-A'+ApplicationType.value+',-A'+ILicNo.value+',-A'+DaysHours.value+',-A'+AmountDue1.value+',-A'+AmountPaid1.value+',-A'+Balance1.value+',-A'+FleetSubAssign.value+',-A,-A'+document.getElementById('CSRFCode').value+',-A'+createm.value+',-AY,-A,-A,-A'+OptToSendSMSVal.value,'ResultsSave','Save','left=120,top=40,HEIGHT=140,WIDTH=300');
+		}
+	}
+
+}
+
+
+
+function OptToSendSMSFun()
+{
+	with(document.forms[0])
+ {
+ 			if(OptToSendSMS.value!='Y' && DrvRecvMsg.value=='Y')
+			{
+				if(!confirm('|^Do You Want To Send SMS?^|'))
+					{
+						OptToSendSMSVal.value='N';
+					}
+					else
+					{
+						OptToSendSMSVal.value='Y'
+					}
+			
+			}
+			else
+			{
+				OptToSendSMSVal.value='Y';
+			}
+}
+}
+
+
+function WhindowSubmit()
+{
+ with(document.forms[0])
+ {
+	if(CheckVehStatsuBeforeSave())
+ 			Submit();
+	}
+}
+
+
+function EnableSave()
+{
+ with (document.forms[0])
+ {
+   document.all.Save_BT.disabled=false;
+ }
+}
+
+function EnableButton(flag)
+{
+ 				 with (document.forms[0])
+				 { 
+				 	 Save_BT.disabled=flag;
+         }
+}
+function ProceedClick() 
+{
+with (document.forms[0])
+	{
+		if(parseInt(CompanyFormat.value)==142)
+		{
+			RemarkPopup(9,'RemarkIdR',event);
+			document.getElementById("InvoiceRemark").focus();
+		}
+		else
+		{
+		proceed();
+		}
+	}
+}
+
+
+function proceed()
+{
+with (document.forms[0])
+	{
+	
+	if (CompanyFormat.value==124)
+	{
+	
+	GetDrvoutstanding(DriverCode.value);
+	}
+		if(CompanyFormat.value==8 || CompanyFormat.value==116 || CompanyFormat.value==100)
+		{
+		
+			var link1="OutstandingInvoices&ARGUMENTS=-A"+DriverCode.value+',-A'+DocumentNo.value+',-A'+DebitorCode.value;
+			var xml =loadDefXml(link1);
+			var rt=xml.getElementsByTagName("Root")
+			if(rt.item(0).getAttribute("AgrInvExist")=='YES')
+	        {
+	    	alert("|^Invoices Outstanding for Rental Agreement^|");	
+					
+			}
+			if(rt.item(0).getAttribute("Exist")=='YES')
+	        {
+	    	alert("|^Invoices Outstanding for Driver^|");	
+					
+			}
+			if(rt.item(0).getAttribute("DebInvExist")=='YES')
+	        {
+	    	alert("|^Invoices Outstanding for Debitor^|");	
+					
+			}
+			
+			
+		}
+	
+	if(CompanyFormat.value==123)
+	{
+	 if(checkCurrentLoginuser())
+		{   }	
+		else
+		{
+			alert('User is Logoff Please Login');
+			return false;
+		}
+	}	
+	 //Make_DisableButton(true);
+	 <!$MGIF_ValidationCompanyCondition>
+	 	if(!confirm('|^Have you checked and processed Traffic Fines for this Agreement?^|'))
+		{
+			Make_DisableButton(false);
+		 	return false;
+		}
+	<!$MGENDIF>
+	if(CompanyFormat.value!=8 && CompanyFormat.value!=116 && CompanyFormat.value!=100){
+	 	 if(!(checkAmountPaidAgainstDue()))
+		 {
+		 Make_DisableButton(false);
+		 	return false;
+		 }
+		} 
+		 if(AllowInternalAgr.value=='Y' && AgrType.value=="I")
+			{
+			if(confirm('|^Are You Sure To Process ?^|'))
+			{
+  			closewindow.value=0;
+  			Invoice_BT.disabled=true;
+			//MessageWindow();
+			if(CompanyFormat.value==115)
+			{
+			OptToSendSMSFun();
+			}
+  			if(!checkDriverDeposit())
+  			{
+		  	  ProceedClicked.value="1";
+  				submit();
+  			}
+			}
+			else
+			Make_DisableButton(false);
+			}	
+			
+			else
+			{
+		
+			if(confirm('|^Are You Sure To Process Invoicing ?^|'))
+			{
+			
+					if(CompanyFormat.value==82)
+					{	
+						alert("Agreement Invoice User ID will be "+ UserID.value+" !");
+					}
+  			closewindow.value=0;
+  			Invoice_BT.disabled=true;
+		 if(SMSByTemplate.value=='Y' && SendSMS.value=='Y' && AllowedPosSMS.value!='Y')
+						{
+							if(!confirm('|^Do You Want To Send SMS?^|'))
+							{
+								//Make_DisableButton(false);
+								SendSMSAltayyar.value='N';
+								//return true;
+							}
+						}
+						if(SMSByTemplate.value=='Y' && SendSMS.value=='Y' && AllowedPosSMS.value=='Y')
+						{
+							SendSMSAltayyar.value='Y';
+						}
+			//MessageWindow();
+			if(CompanyFormat.value==8 || CompanyFormat.value==116 || CompanyFormat.value==100)
+			{
+				if(document.getElementById("CopyAgrVatClose").value=='Y')
+				{//SPR-63222 Agreement based On agreement on Invoice Proceed
+					if(confirm('|^Do You Want To Create New Agreement Based On This Agreement ?^|'))
+					{
+						AgrBasedOnAgr.value='Y';
+					}
+				}
+			}
+  			if(!checkDriverDeposit())
+  			{
+				ProceedClicked.value="1";
+  				submit();
+  			}
+			}
+			else
+			Make_DisableButton(false);
+			}
+	}
+}
+function GetDrvoutstanding(DriverCode)
+{
+
+var urlOc = "GetDriverOutstanding"+"&ARGUMENTS=-A"+DriverCode;
+			var xml1 = loadDefXml(urlOc);
+			result=xml1.getElementsByTagName('Root').item(0); 
+			document.getElementById("OutStandingAmt").value=result.getAttribute('OutstandingAomunt');
+			//alert(document.getElementById("OutStandingAmt").value);
+			//var DriverOutstandingAmt=parseFloat(trim(document.getElementById("OutStandingAmt").value));
+			var DriverOutstandingAmt=document.getElementById("OutStandingAmt").value;
+			if(DriverOutstandingAmt!=0  )
+			{
+			alert("|^Driver^|-" +DriverCode+  " has an Outstanding Amount^|="+DriverOutstandingAmt);
+			return true;
+			}
+			return false;
+}
+function checkAmountPaidAgainstDue()
+{
+ with(document.forms[0])
+ {
+ 				var link1="[X]CheckAmountPaidAgainstDue&ARGUMENTS=-A,-A"+DocumentNo.value;
+        /*
+		var urlOc = url+link1;
+        var xmlGet= new ActiveXObject("Msxml2.XMLHTTP.3.0");
+    	xmlGet.open("GET",urlOc, false);
+    	xmlGet.send();
+	    var xml = xmlGet.responseXML;
+		*/
+		var xml =loadDefXml(link1);
+			//alert(xml.xml);
+			var rt=xml.getElementsByTagName("root")
+	   // alert(rt.item(0).getAttribute("FullyPaid"));
+		  if((rt.item(0).getAttribute("ErrorWarning67")=='W' || rt.item(0).getAttribute("ErrorWarning67")=='E') && rt.item(0).getAttribute("DriverAmountExceeds")=='Y' )
+	    {
+	    	alert("|^Driver Paid Amount Exceeds Total Amount, Please Cancel Paid Amount Before Invoicing^|");	
+				if(rt.item(0).getAttribute("ErrorWarning67")=='E')
+				{
+				 return false;
+				}		
+			}
+	    if((rt.item(0).getAttribute("ErrorWarning68")=='W' || rt.item(0).getAttribute("ErrorWarning68")=='E') && rt.item(0).getAttribute("CustomerAmountExceeds")=='Y' )
+	    {
+	    	alert("|^Customer Paid Amount Exceeds Total Amount, Please Cancel Paid Amount Before Invoicing^|");	
+				if(rt.item(0).getAttribute("ErrorWarning68")=='E')
+				{
+				 return false;
+				}		
+			}						
+			return true;	
+ }
+}
+function Make_DisableButton(flag)
+{
+ 				 with (document.forms[0])
+				 { 
+				 Back_BT.disabled=flag;
+				 Cancel_BT.disabled=flag;
+				 Inv_BT.disabled=flag;
+				 <!$MGIF_CourtesyDisabled>
+				 Invoice_BT.disabled=true;
+				 <!$MGELSE>
+ 				 Invoice_BT.disabled=flag;
+				 <!$MGENDIF>
+				 Close_Btn.disabled=flag;
+				 <!$MGIF_ShowCancelButton>
+				 <!$MGELSE>
+				 CancelBT.disabled=flag;
+				 <!$MGENDIF>
+				 
+				 <!$MGIF_ShowPrintDamages>
+				 		PrintDamages_BT1.disabled=flag;
+					<!$MGENDIF>
+				 
+				 
+//					if(flag==false)
+	//				Cursor(1); 
+				}						 
+}
+
+// Date:09-Jul-2009 SPR 55/499 Check for Driver Deposit
+
+function checkDriverDeposit()
+{
+	with(document.forms[0])
+	{
+			if(CompanyFormat.value==124 )
+			{
+				if(document.forms[0].AllowInvCreate.value!=1 && parseFloat(DriverSubTotal.value)!=0)
+				{
+					
+					if(!ValidateDriverDeposit())
+					{
+					Invoice_BT.disabled=false;
+					return true;												
+					}
+					else 
+					return false;
+				}
+			}
+			
+		if(parseFloat(DriverSubTotal.value)==0)
+		{
+			if(DriverDepositRecordFound.value=='True')
+			{
+				if(DriverDepositEW.value=='E')
+				{
+				 alert('|^Open deposit exists on agreement^|');
+					Make_DisableButton(false);
+					return true;
+				}
+				if(DriverDepositEW.value=='W')
+				{
+				 if(!confirm("|^Open deposit exists on agreement, Do You Want to Proceed?^|"))
+    			{	  	
+										Make_DisableButton(false);
+    		   	  return true;
+    			}
+				}
+			}
+		}
+		return false;
+	}
+}
+
+function Cursor(checkdis)
+{
+with(document.forms[0])
+	{
+
+ Decimal_Separator=getCookie('DecimalSep'); 				// 18/05/06 - Added by SNEHA to check for Decimal Separator
+<!$MGIF_CourtesyDisabled>
+<!$MGELSE> Messages()
+<!$MGENDIF>
+with(document.forms[0])
+  {
+if( parseInt(CompanyFormat.value)==88 || parseInt(CompanyFormat.value)==145 || parseInt(CompanyFormat.value)==146 || parseInt(CompanyFormat.value)==147 || parseInt(CompanyFormat.value)==148 || parseInt(CompanyFormat.value)==149 || parseInt(CompanyFormat.value)==150 || parseInt(CompanyFormat.value)==151 || parseInt(CompanyFormat.value)==152)
+		{
+			
+			if(document.getElementById('Nego_BT'))
+			document.getElementById('Nego_BT').style.display='none';	
+		if(document.getElementById('ManualAgrCorr'))
+			document.getElementById('ManualAgrCorr').style.display='none';	
+		<!$MGIF_FrmCheckout>
+		<!$MGIF_ALLOWCHKLIST>	
+		if(document.getElementById('VehChkList_BT'))
+			document.getElementById('VehChkList_BT').style.display='none';
+			
+<!$MGENDIF>			
+<!$MGENDIF>			
+	
+<!$MGIF_AllowKeyOI>
+	if(document.getElementById('KeyAndOI'))
+			document.getElementById('KeyAndOI').style.display='none';	
+			<!$MGENDIF>
+			if(document.getElementById('Sign_BT'))
+			document.getElementById('Sign_BT').style.display='none';	
+			if(document.getElementById('PrExtn_BT'))
+			document.getElementById('PrExtn_BT').style.display='none';
+			if(document.getElementById('BMB_BT'))
+			document.getElementById('BMB_BT').style.display='none';
+			if(document.getElementById('DPB_BT'))
+			document.getElementById('DPB_BT').style.display='none';
+		}	
+}
+<!$MGIF_FromCheckIn>
+  with(document.forms[0])
+  {
+  if(AllowInternalAgr.value=='Y' && AgrType.value=="I")
+			{
+				Invoice_BT.value="Save Agreement";
+			}
+        	if(CompanyFormat.value==72 || CompanyFormat.value==81 || CompanyFormat.value==89)
+        	{
+        	 Customer_Payment_BT.disabled=false;
+        	 Customer_Payment_BT.style.display='';
+        	}
+        	else
+        	{
+        	  Customer_Payment_BT.disabled=true;
+        	  Customer_Payment_BT.style.display='none';
+        	}
+        	if(checkdis!=1)
+        	{
+        	 	 Make_DisableButton(false);
+        	}
+				 
+
+		
+			if(CompanyProgramCode.value==102 || CompanyProgramCode.value==122)
+				{					
+					document.getElementById("UpDocs").style.display="";					
+				}
+				else
+				{				
+				document.getElementById("UpDocs").style.display="none";				
+				}
+				
+				
+		
+				
+			
+}
+
+<!$MGENDIF>	
+if(document.forms[0].CompanyProgramCode.value==110)
+document.forms[0].BMB_BT.value="|^Monthly Invoicing^|";
+	//Driver prebill allow only if define on default context='Y',agreement code='E',status in(1,3),driver_code>0,debitor_code<9999
+	
+if(document.forms[0].CompanyProgramCode.value==102 || document.forms[0].CompanyProgramCode.value==122)
+				{					
+					document.getElementById("UpDocs").style.display="";					
+				}
+				else
+				{				
+				document.getElementById("UpDocs").style.display="none";				
+				}
+				
+				if(document.forms[0].CompanyProgramCode.value!=8 && document.forms[0].CompanyProgramCode.value!=100 && document.forms[0].CompanyProgramCode.value!=116)
+				{
+				<!$MGIF_CourtesyDisabled>
+			<!$MGELSE> 
+					CheckRate()
+			<!$MGENDIF>
+	}	
+<!$MGIF_PendingInvoice>
+alert("|^There are some pending adjustment invoices for this agreement, Please check for payments.^|")
+<!$MGENDIF>	
+if(document.forms[0].CompanyProgramCode.value==127)
+				{					
+					document.getElementById("InsUpDocs").style.display="";					
+				}
+
+   if(document.forms[0].CompanyFormat.value==126)
+	{		
+        <!$MGIF_FrmCheckout1>
+	    <!$MGIF_ALLOWCHKLIST1>	
+		document.getElementById("VehChkList_BT").value="|^PDI^|";		
+         <!$MGENDIF>
+         <!$MGENDIF>
+ 		
+	}
+
+
+
+HideToolTipWindow('Extras')
+HideToolTipWindow('Insurance')
+HideToolTipWindow('Fuel')
+HideToolTipWindow('Traffic')
+HideToolTipWindow('AllInvoices')
+HideToolTipWindow('TollFee')
+HideToolTipWindow('Others')
+HideToolTipWindow('PMTOVRem');
+			/*	if(document.forms[0].CompanyProgramCode.value==124)
+				{
+					<!$MGIF_FromCheckIn>
+						var Total_paid=parseFloat(document.forms[0].TotalPid.value);
+						var TotalWithTx=parseFloat(document.forms[0].TotalWithTax.value);
+					    if(Total_paid<TotalWithTx)
+						{
+						if(document.forms[0].AllowInvCreate.value!=1)
+							{
+									if((document.forms[0].DebitorCode.value)=='' || parseInt(document.forms[0].DebitorCode.value)==0)
+									{
+								document.forms[0].Invoice_BT.disabled=true;
+								alert("|^Agreement Is Not Fully Paid Cannot Proceed To Invoicing^|");
+									}
+							}
+						}
+					<!$MGENDIF>
+				}
+				*/
+			if(document.forms[0].CompanyFormat.value==126)
+			{
+			
+				if(!(CheckInStr(AccessMenuRights,'CancelRAgr')))
+				{
+					if(document.forms[0].CancelBT)
+					{
+						document.forms[0].CancelBT.style.display="none";
+						}
+				}
+			}
+			
+		if(document.forms[0].CompanyFormat.value!=135)
+			{
+					document.forms[0].SendMail_BT.style.display="none";	
+			}	
+			if(document.forms[0].CompanyFormat.value==134 && (document.forms[0].createm.value=='Create'|| document.forms[0].createm.value=='Modify'))
+			{
+					document.forms[0].SendMail_BT.style.display="";	
+			}
+			if(document.forms[0].CompanyFormat.value==8 || document.forms[0].CompanyFormat.value==100 || document.forms[0].CompanyFormat.value==116 )
+				{					
+					document.getElementById("PrintDrvSTMT_BT").style.display="";					
+				}
+				if(CompanyFormat.value==134)
+		{
+			if(TajeerIntegrationYN.value=='Y')
+			{	
+				document.getElementById("CloseTajeerContract").style.display="";	
+			}
+			}
+				
+	}				
+}
+function cancelagreement()
+{
+
+location.href='/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=CancelAgreement&Arguments=-A'+document.forms[0].DocumentNo.value
+
+}	
+
+function UpdatePrintPrice()
+{
+var loc="/Magic94Scripts/mgrqispi94.dll?APPNAME=RentProWeb&PRGNAME=UpdatePrintPriceFlag&ARGUMENTS=-N1,-A,-A"+document.forms[0].DocumentNo.value+",-A"+document.forms[0].PrintPrice.value;
+ document.all.frm_page.src=loc;
+}
+
+
+function close_function()
+{
+with(document.forms[0])
+{
+<!$MGIF_FromCheckIn>
+confirmyn = confirm("|^Agreement is Not Closed, Do You Want to Exit^|?");
+if(confirmyn)
+window.close();
+<!$MGELSE>
+<!$MGIF_FrmCheckout>
+<!$MGIF_NotExchange>
+if(Save_BT.disabled != true)
+{
+
+confirmyn1 = confirm("|^Agreement is Not Saved, Do You Want to Exit^|?");
+if(confirmyn1)
+window.close();
+}
+else
+window.close();
+<!$MGELSE>
+window.close();
+<!$MGENDIF>
+<!$MGELSE>
+window.close();
+<!$MGENDIF>
+<!$MGENDIF>
+}
+}
+
+function BMBPopup()
+{
+ with(document.forms[0])
+ {
+ if(StopBillAgr.value=='Y')
+ {
+ alert("|^Agreement Is On Stop Billing^|");
+ }
+ else
+ {
+ 	NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=DisplayBranchMonthlyBilling&Arguments=-A'+DocumentNo.value,'BranchMonthlyBilling','BranchMonthlyBilling','resizable=1,channelmode=yes,scrollbars=1'); 	
+ }
+ }
+}
+function DPBPopup()
+{
+ with(document.forms[0])
+ {
+ 	NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=DisplayDriverPreBilling&Arguments=-A'+DocumentNo.value,'DriverPreBilling','DriverPreBilling','resizable=1,channelmode=yes,scrollbars=1'); 	
+ }
+}
+
+function createDelivery()
+{
+ with(document.forms[0])
+ {
+ 	NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=CreateBatchOutDelivery&Arguments=-A'+DocumentNo.value,'DeliveryPickup','DeliveryPickup','resizable=1,channelmode=yes,scrollbars=1'); 	
+ }
+
+}
+function SubExtrasInVentory()
+{
+with(document.forms[0])
+ {
+  NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=AgrSubExtrasEntry&Arguments=-A'+DocumentNo.value+',-A'+SubExtDtl.value,'Print3','FrBrCheckin','left=120,top=40,HEIGHT=600,WIDTH=800,scrollbars=1');
+ }
+
+}
+function NegotiationScreen()
+{
+ with(document.forms[0])
+ {
+ NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=NegotiationViewScreen&Arguments=-A'+DocumentNo.value,'Print3','FrBrCheckin','left=120,top=40,HEIGHT=600,WIDTH=900,scrollbars=1');
+ }
+}
+function SignatureScreen()
+{
+ with(document.forms[0])
+ {
+ NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=SignaturePad&Arguments=-A'+DocumentNo.value,'Print4','FrBrCheckin','left=120,top=40,HEIGHT=600,WIDTH=1100,scrollbars=1');
+ }
+}
+
+function PrintExtended()
+{
+ with(document.forms[0])
+ {
+if(CompanyFormat.value==130 || CompanyFormat.value==137|| CompanyProgramCode.value==132)
+{
+	NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=AgreementExtendPrint&Arguments=-A'+DocumentNo.value,'Print4','FrBrCheckin','left=120,top=40,HEIGHT=600,WIDTH=1100,scrollbars=1');
+}
+else
+{
+	location.href='/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=AgreementExtendPrint&Arguments=-A'+DocumentNo.value;
+} 
+
+ }
+}
+
+ 
+function PrintExchange()
+{
+ with(document.forms[0])
+ {
+ if(CompanyFormat.value==137 || CompanyFormat.value==140)
+ NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=PrintExchangeAgreement&Arguments=-A'+DocumentNo.value,'Print4','FrBrCheckin','resizable=1,channelmode=yes,scrollbars=1'); 
+ if(CompanyFormat.value==144)
+{
+NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=PrintRentalExchange&Arguments=-A'+DocumentNo.value+',-A,-A,-A,-A,-A,-A,-A','Print4','FrBrCheckin','left=120,top=40,HEIGHT=600,WIDTH=1100,scrollbars=1')
+}
+ else
+ NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=ListOfExchangeVehicleTheeb&Arguments=-A,-A,-A,-A,-A,-A,-A,-A'+DocumentNo.value,'Print4','FrBrCheckin','left=120,top=40,HEIGHT=600,WIDTH=1100,scrollbars=1');
+ }
+}
+ 
+ 
+ function ManualAgrCorr1()
+{
+ with(document.forms[0])
+ {
+ if(CompanyFormat.value==89 || CompanyFormat.value==102 || CompanyFormat.value==122 || CompanyFormat.value==111)
+	NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=ManualAgrCorrection&Arguments=-A'+DocumentNo.value,'Print4','FrBrCheckin','left=120,top=40,HEIGHT=600,WIDTH=1100,scrollbars=1');
+ }
+}
+ 
+function getSubExtras()
+{
+
+with(document.forms[0])
+
+ {
+ 
+  document.oncontextmenu = document.oncontextmenu = function() {return false;}
+
+var urlOc = 'AgrSubExtrasBuildXML&Arguments=-A'+DocumentNo.value;
+var page = loadDefXml(urlOc);
+/*									
+									var xmltemp = new ActiveXObject("Msxml2.XMLHTTP.3.0");
+                          xmltemp.open("GET",urlOc, false);
+                          xmltemp.send();
+                    			//alert(xmltemp.responseXML.xml);
+													SubExtDtl.value=xmltemp.responseXML.xml;
+													
+*/
+
+var resultNode = page.getElementsByTagName('root').item(0);
+
+ SubExtFound.value=resultNode.getElementsByTagName('SubExtraF').item(0).firstChild.nodeValue;
+
+SubExtDtl.value=getXMLStringFromObject(loadDefXml(urlOc));
+SubExtDtl.value=SubExtDtl.value.replace(/(\r\n|\n|\r)/g,"");
+		}
+}
+
+function CheckAgrSubExtras(CalledFrom1)
+{
+with(document.forms[0])
+
+ {
+ if(SubExtFound.value!='N')
+ {
+var urlOc = 'CheckAgrSubExtras&Arguments=-A'+DocumentNo.value+',-A'+SubExtDtl.value+',-A'+CalledFrom1;
+/*
+									var xmltemp = new ActiveXObject("Msxml2.XMLHTTP.3.0");
+                          xmltemp.open("GET",urlOc, false);
+                          xmltemp.send();
+                    			//alert(xmltemp.responseXML.xml);
+													var page = xmltemp.responseXML;
+*/
+var page = loadDefXml(urlOc);
+                    			var resultNode = page.getElementsByTagName('root').item(0);
+													
+													if(resultNode.getAttribute('RecordsExists')=='T')
+														AgrSub_BT.disabled=false;
+													if(resultNode.getAttribute('ChkExtCode')=='F')
+													{
+													alert("|^Enter Sub Extras^|");
+													AgrSub_BT.focus();
+													return false;
+													}
+													else
+													return true;
+													
+			}					
+			else
+			return true;			
+		}
+
+}
+function UploadDocs()
+{
+	with(document.forms[0])
+	{
+		NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=UploadDocument&Arguments=-ARA,-A'+DocumentNo.value+',-AAgreement','UploadDoc','UploadDoc','resizable=1,channelmode=yes');
+	fullscreen();
+	}
+}
+window.onbeforeunload = function() {
+ //your message goes here
+  // alert('Wndow close');
+with(document.forms[0])
+ {
+	if(CompanyFormat.value==88 || CompanyFormat.value==142)
+	{
+		if(ExtrasInvByUnit.value=='Y' && AGRRecSavedXMLVal_YN != 'Y' &&  RecordStatus.value == '')
+		{
+				if(parseInt(ProceedClicked.value)!=1)
+					location.href='/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=RemoveExtrasRecord&Arguments=-A'+DocumentNo.value;
+		}
+	}
+	else
+	{
+		if(ExtrasInvByUnit.value=='Y' && AGRRecSavedXMLVal_YN != 'Y'  &&  RecordStatus.value == '')
+		{
+				if(parseInt(ProceedClicked.value)!=1)
+					location.href='/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=RemoveExtrasRecord&Arguments=-A'+DocumentNo.value;
+		}
+	}
+   }
+}
+
+function CallSendSMS()
+{
+ with(document.forms[0])
+ {  
+ //alert(createm.value);
+	var CalFrm ;
+	var SubType ;
+	if(CompanyProgramCode.value==115)
+		GetAmount();
+		
+	if(createm.value=='Modify'){
+		CalFrm = 4;
+		SubType = 2;
+		}
+	else if(createm.value=='Create'){
+		CalFrm = 5;
+		SubType =1 ;
+		}
+	else if(createm.value=='Exchange'){
+		CalFrm = 1;
+		SubType =5;
+		}
+	else{
+	
+		CalFrm = 1
+		SubType =4;
+		}
+	if(EmailByTemplate.value=="Y")
+	{
+		<!$MGIF_FromCheckIn>
+		SubType =3;
+		<!$MGENDIF>
+	}
+		
+	if(CompanyProgramCode.value==124)
+	{
+			if(parseInt(CalFrm)==4)
+				CalFrm=20;
+			if(parseInt(CalFrm)==4)
+				CalFrm=9;
+			
+			NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=SendSmsUsingTemplate&Arguments=-A'+CalFrm+',-A,-A'+DocumentNo.value+',-A'+DocumentNo.value+',-A,-A0,-A'+DriverCode.value+',-A,-A,-A'+MobileNo.value+',-A,-A1','RentalAgrSave','RentalAgrSave','left=120,top=40,HEIGHT=650,WIDTH=720,resizable=1');
+	}
+	else if(EmailByTemplate.value=="Y")
+	{
+		NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=SendGetEmailSMSTemplate&Arguments=-A1,-AS,-A'+DocumentNo.value+',-A,-AE,-A1,-A'+SubType,'RentalAgrSave','RentalAgrSave','left=120,top=40,HEIGHT=650,WIDTH=720,resizable=1');
+	}
+	else
+	{
+		NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=SendSMSPage&Arguments=-A'+MobileNo.value+',-A'+SMSMessage.value+',-A'+SMSReceiverName.value+',-A'+GatewayNo.value+',-A'+ApplicationType.value+',-A,-A'+ILicNo.value+',-A'+DocumentNo.value+',-A'+DaysHours.value+',-A'+AmountDue1.value+',-A'+AmountPaid1.value+',-A'+Balance1.value+',-A,-A,-A,-A,-A'+CalFrm,'RentalAgrSave','RentalAgrSave','left=120,top=40,HEIGHT=650,WIDTH=720,resizable=1');
+	}
+ }
+}
+
+function CallViewImport()
+{
+ with(document.forms[0])
+ {  
+	
+	
+  	NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=ViewReservationImportDetail_AC&Arguments=-A'+RefReservationNo.value+',-A,-A'+ReservationNo1.value,'RentalAgrSave','RentalAgrSave','left=120,top=40,HEIGHT=650,WIDTH=1000,resizable=1');
+ }
+}
+
+function GetAmount(){
+	with(document.forms[0]){
+		var ValidateXML;		    /*
+		var urlOc = '/Magic94Scripts/mgrqispi94.dll?appname=RentproWeb&prgName=CommonXMLValidationProg&Arguments=-A60,-A'+DocumentNo.value;
+		var xmltemp = new ActiveXObject("Msxml2.XMLHTTP.3.0");
+		xmltemp.open("GET",urlOc, false);		 
+		xmltemp.send();	
+		ValidateXML = xmltemp.responseXML;
+		
+		var XmlRoot = ValidateXML.getElementsByTagName("Root").item(0);
+		var TotAmt1=XmlRoot.getElementsByTagName("TotalAmount").item(0).text;
+		var Paid1=XmlRoot.getElementsByTagName("PaidAmount").item(0).text;
+		var Bal1=XmlRoot.getElementsByTagName("BalanceAmt").item(0).text;
+		*/
+		
+		var urlOc = 'CommonXMLValidationProg&Arguments=-A60,-A'+DocumentNo.value;
+		ValidateXML = loadDefXml(urlOc); 
+		var XmlRoot = ValidateXML.getElementsByTagName("Root").item(0);
+		
+		if(XmlRoot.getElementsByTagName("TotalAmount").item(0).firstChild)
+		var TotAmt1=XmlRoot.getElementsByTagName("TotalAmount").item(0).firstChild.nodeValue;
+		if(XmlRoot.getElementsByTagName("PaidAmount").item(0).firstChild)
+		var Paid1=XmlRoot.getElementsByTagName("PaidAmount").item(0).firstChild.nodeValue;
+		if(XmlRoot.getElementsByTagName("BalanceAmt").item(0).firstChild)
+		var Bal1=XmlRoot.getElementsByTagName("BalanceAmt").item(0).firstChild.nodeValue;
+		
+		
+		
+		AmountDue1.value = TotAmt1;
+		AmountPaid1.value = Paid1;
+		Balance1.value = Bal1;
+		return true;
+	}
+}
+<!$MGIF_FrmCheckout>	
+function Print_BTonclick(){
+	with(document.forms[0]){
+		if(CompanyFormat.value==134 )
+		{
+			var ValidateXML;
+					var urlOc = 'CommonXmlPrg&Arguments=-A47,-A,-A,-A,-A,-A,-A,-A'+DocumentNo.value;
+					ValidateXML=loadDefXml(urlOc);
+					var  PersonXmlRoot = ValidateXML.getElementsByTagName("Root").item(0);
+					var AllowPrint=$(PersonXmlRoot.getElementsByTagName("AllowPrint").item(0)).text();
+					if(AllowPrint == "N")
+					{
+							alert("|^Can not Reprint Agreement As there is no deposite or Security Against this Agreement^|");
+							return false;
+					}else{
+							var loc="CheckPrintingWeb"+"&ARGUMENTS=-A"+DocumentNo.value+",-A"+RentalReason.value;
+					
+							xml1=loadDefXml(loc);
+							result=xml1.getElementsByTagName('Result').item(0);
+							if(result){
+								eval(result.getAttribute('MergeString'));
+							}
+					
+					}
+		}else{
+			var loc="CheckPrintingWeb"+"&ARGUMENTS=-A"+DocumentNo.value+",-A"+RentalReason.value;
+/*
+		var req = new ActiveXObject("MSXML2.XMLHTTP.3.0");
+		req.open('GET', loc, false);
+		req.send();
+		xml1=req.responseXML;
+*/
+		xml1=loadDefXml(loc);
+		result=xml1.getElementsByTagName('Result').item(0);
+		
+		//alert(result.getAttribute('MergeString'))
+		if(result){
+			eval(result.getAttribute('MergeString'));
+		}
+		}
+	}
+}
+
+
+
+function Save_BTonclick(){
+	with(document.forms[0]){
+		var loc="CheckErrorsCheckOut_AgrSave"+"&ARGUMENTS=-A"+DocumentNo.value+",-A"+"<!$MG_Sav_Hyp_1>"+",-A"+"<!$MG_Sav_Hyp_2>"+",-A"+"<!$MG_Sav_Hyp_3>"+",-A"+"<!$MG_Sav_Hyp_4>"+",-A"+"<!$MG_Sav_Hyp_5>"+",-A"+"<!$MG_Sav_Hyp_6>"+",-A"+"<!$MG_Sav_Hyp_7>"+",-A"+"<!$MG_Sav_Hyp_8>"+",-A"+"<!$MG_Sav_Hyp_9>"+",-A"+"<!$MG_Sav_Hyp_10>"+",-A"+"<!$MG_Sav_Hyp_11>"+",-A"+"<!$MG_Sav_Hyp_12>"+",-A"+"<!$MG_Sav_Hyp_13>"+",-A"+"<!$MG_Sav_Hyp_14>"+",-A<!$MG_Sav_Hyp_15>";
+/*
+		var req = new ActiveXObject("MSXML2.XMLHTTP.3.0");
+		req.open('GET', loc, false);
+		req.send();
+		xml1=req.responseXML;
+*/
+		xml1=loadDefXml(loc);
+		result=xml1.getElementsByTagName('Result').item(0);
+
+		if(result){
+//		alert(result.getAttribute('MergeString'));
+			eval(result.getAttribute('MergeString'));
+		}
+	/*Please Add Following Magic Tags To Form:
+
+	<!$MG_Sav_Hyp_1> ==>  Exp No. ==>
+	<!$MG_Sav_Hyp_2> ==>  Exp No. ==>
+	<!$MG_Sav_Hyp_3> ==>  Exp No. ==>
+	<!$MG_Sav_Hyp_4> ==>  Exp No.608 ==>
+	<!$MG_Sav_Hyp_5> ==>  Exp No. ==>
+	<!$MG_Sav_Hyp_6> ==>  Exp No. ==>
+	<!$MG_Sav_Hyp_7> ==>  Exp No.609 ==>
+	<!$MG_Sav_Hyp_8> ==>  Exp No.610 ==>
+	<!$MG_Sav_Hyp_9> ==>  Exp No. ==>
+	<!$MG_Sav_Hyp_10> ==>  Exp No.611 ==>
+	<!$MG_Sav_Hyp_11> ==>  Exp No. ==>
+	<!$MG_Sav_Hyp_12> ==>  Exp No. ==>
+	<!$MG_Sav_Hyp_13> ==>  Exp No. ==>
+	<!$MG_Sav_Hyp_14> ==>  Exp No. ==>
+	<!$MG_Sav_Hyp_15> ==>  Exp No. ==>
+	<!$MG_Sav_Hyp_16> ==>  Exp No.612 ==>
+	*/
+	if(CompanyFormat.value==134)
+		{
+			if(TajeerIntegrationYN.value=='Y')
+			{
+				document.getElementById("SaveContract_BT").style.display="";	
+			}
+				
+			<!$MGIF_CustomerAgr>
+			Customer_Payment_BT.disabled=true;
+			Customer_Payment_BT.style.background="cccccc";
+			Payment_BT.disabled=true;
+			Payment_BT.style.background="cccccc";
+			<!$MGENDIF>
+			
+		}
+		
+		ReceiveSMS();
+	}
+}
+
+function CallVehChkList(){
+	with (document.forms[0]){
+	<!$MGIF_NotExchange>
+	if(Save_BT.disabled != true){
+		alert("|^Agreement is Not Saved^|");
+		return false;
+	}	
+	<!$MGENDIF>
+		NewWin("/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=VehicleCheckListCreateView&Arguments=-AC,-AE,-A"+<!$MG_DocumentNo>,"ChkList","ChkList","left=50,top=45,HEIGHT=400,WIDTH=700,scrollbars=1,status=0,resizable=1");
+	
+	}
+}
+function OpenKeyDelivery()
+{
+	with (document.forms[0])
+	{
+		NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=KeyOtherItemDeliveryPickup&Arguments=-AD,-A'+document.forms[0].IUnitNo.value+',-A'+document.forms[0].DocumentNo.value+',-A,-A,-A,-A,-A,-A,-A,-A1','OpenKeyDeliveryWin','OpenKeyDeliveryWin','resizable=1,height=525,WIDTH=865,scrollbars=1');
+	}
+}
+<!$MGENDIF>
+function StyleDisplay()
+{
+	with(document.forms[0]){
+		
+		<!$MGIF_visibleRedeemPoint>
+		document.getElementById("RedeemAmtDisp").style.display='';
+		document.getElementById("RedeedPtDtl").style.display='';
+		<!$MGELSE>
+		document.getElementById("RedeemAmtDisp").style.display='none';
+		document.getElementById("RedeedPtDtl").style.display='none';
+		<!$MGENDIF>
+		
+		<!$MGIF_visibleRedeemDays>
+		document.getElementById("FreeDAyAmtDisp").style.display='';
+		document.getElementById("DaysDtl").style.display='';
+		<!$MGELSE>
+		document.getElementById("FreeDAyAmtDisp").style.display='none';
+		document.getElementById("DaysDtl").style.display='none';
+		<!$MGENDIF>
+		
+		<!$MGIF_CompFormat8>
+		document.getElementById("PrintP").style.display='';
+		<!$MGELSE>
+		document.getElementById("PrintP").style.display='none';
+		<!$MGENDIF>
+		
+	}
+}
+/*
+if (document.all)
+{   
+ document.onkeydown = function ()
+ {
+         var key_f5 = 116;   
+		
+  if (key_f5==event.keyCode)
+  {
+	        event.keyCode=0;
+          return false;
+  }
+ }
+}*/
+var version = navigator.appVersion;
+function showKeyCode(e)
+{
+    var keycode = (window.event) ? event.keyCode : e.keyCode;
+	if ((version.indexOf('MSIE') != -1)) 
+	{
+        if (keycode == 116 || keycode == 8) 
+		{
+            event.keyCode = 0;
+			event.returnValue = false;
+            return false;
+        }
+		if ((keycode == 37) && (e.altKey)) { //To disable Alt+BackArrow
+				return false; 
+		}
+    }
+    else
+	{
+        if (keycode == 116 || keycode == 8) 
+		{
+            return false;
+        }
+		if ((keycode == 37) && (e.altKey)) { //To disable Alt+BackArrow
+				return false; 
+		}
+    }
+}
+function InsUploadDocs()
+{
+	with(document.forms[0])
+	{
+	NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=UploadDocument&Arguments=-AYI,-A'+DocumentNo.value+',-AYoung Driver Insurance','UploadDoc','UploadDoc','resizable=1,channelmode=yes');
+	fullscreen();
+	 Save_BT.disabled=false;	
+	
+	}
+}
+
+function CheckYoungDrvInsDocattached()
+{
+with(document.forms[0])
+	{
+	
+	var urlOc = '[X]CheckYoungDrvInsDocAttached&Arguments=-A'+DocumentNo.value;
+				var page11 =loadDefXml(urlOc);
+				var XmlRoot = page11.getElementsByTagName("Root").item(0);
+                var LogFound=XmlRoot.getAttribute("YoungDrvInsDocExist");
+				//alert(XmlRoot.xml)
+				//alert(getXMLStringFromObject(XmlRoot));
+                YoungDrvInsExistsValP.value=LogFound;
+				if(YoungDrvInsExistsValP.value!='Y')
+						{
+						if(document.getElementById('YoungDrvInsEWNP').value=='E')
+							{
+							  alert("|^Please Upload Young Driver Insurance Document^|");
+						      Save_BT.disabled=true;
+							  return false;
+							}
+							if(document.getElementById('YoungDrvInsEWNP').value=='W')
+							{
+							  if(!confirm("|^Please Upload Young Driver Insurance Document \n Do You Want To Proceed^|"))
+							  {
+								 Save_BT.disabled=true;
+								return false;
+							  }
+							  // Save_BT.disabled=false;
+							  return true;
+							} 
+
+                        }	
+Save_BT.disabled=false;							
+return true;
+					
+	
+	}
+
+}
+
+function CheckVehStatsuBeforeSave(){
+	with(document.forms[0]){
+		var ValidateXML;		    
+		var urlOc = 'CommonXMLValidationProg&Arguments=-A105,-A'+DocumentNo.value+'-A'+IUnitNo.value;
+		ValidateXML = loadDefXml(urlOc); 
+		//alert(getXMLStringFromObject(ValidateXML));
+		var XmlRoot = ValidateXML.getElementsByTagName("Root").item(0);
+		if(XmlRoot.getElementsByTagName("RentedFound").item(0).firstChild.nodeValue !='N')
+			{
+				var AgrmNo=XmlRoot.getElementsByTagName("AgreementNo").item(0).firstChild.nodeValue;
+				alert("Car is on Agreement :"+AgrmNo.value)
+				return
+			}
+		else
+			return true;
+				}
+}
+function TotalPaid()
+{
+	with(document.forms[0]){
+		if(CompanyFormat.value==122 && DebitorExistYN.value!=1)
+		{
+			document.getElementById("TotalPaid3").style.display='';
+			document.getElementById("TotalPaid4").style.display='';
+			document.getElementById("TotalPaid5").style.display='';
+			document.getElementById("TotalPaid6").style.display='';
+		}
+		else if(CompanyFormat.value==122 && DebitorExistYN.value==1)
+		{
+			document.getElementById("TotalPaid3").style.display='none';
+			document.getElementById("TotalPaid4").style.display='none';
+		}
+		<!$MGIF_Exchange>
+					if(CompanyFormat.value==130 || CompanyFormat.value==137)
+					{					
+							NewWin(	'/Magic94Scripts/mgrqispi94.dll?APPNAME=RentProWeb&PRGNAME=PrintGatePassBest&ARGUMENTS=-A'+document.forms[0].DocumentNo.value+',-A,-A,-A,-A'+document.forms[0].ILicNo.value+',-A,-A2,-A'+document.forms[0].LastSonNo.value,'GatePass','GatePass','LEFT=10,top=10,HEIGHT=600,WIDTH=600,scrollbars=1,resizable=1');
+					}
+		<!$MGENDIF>
+		
+						if(CompanyProgramCode.value==124)
+					{	
+					<!$MGIF_FromCheckIn>
+						 Invoice_BT.disabled=false;
+						<!$MGENDIF>
+					}
+					if(document.forms[0].CompanyFormat.value==135)
+			{
+					/*<!$MGIF_FromCheckIn>
+					SendSMS_BT.disabled=false;
+					SendMail_BT.disabled=false;
+						<!$MGENDIF>*/
+			}
+					
+		
+	}
+}
+
+
+function ValidateAgreementSave()
+{
+with(document.forms[0]){
+			var ValidateXML;		    
+			var urlOc = 'CommonXmlPrg&Arguments=-A57,-A'+DocumentNo.value;
+			ValidateXML = loadDefXml(urlOc);
+			var XmlRoot = ValidateXML.getElementsByTagName("Root").item(0);
+			var FoundYN=getElementValue(ValidateXML,"Root/RecordExists");	
+			if(FoundYN == "N"){
+				alert("|^Agreement is not saved.^|");
+				
+				return false;
+			}
+			else
+				return true;
+			
+	}		
+}
+
+
+
+function ValidateDriverDeposit()
+{
+	with (document.forms[0])
+	{
+
+		var urlOc = 'CommonXmlPrg&Arguments=-A29,-A'+DocumentNo.value;
+			var xml = loadDefXml(urlOc);
+			
+			//alert(getXMLStringFromObject(xml))
+			var resultNode = xml.getElementsByTagName('Root').item(0);
+			var rslt=resultNode.getElementsByTagName('Result').item(0);
+			if( rslt.getAttribute("DpositComplete")=='N')
+			{
+				alert('Payment Is Incomplete For This Agreement/Traffic Invoice :');				
+				return false;
+			}
+			else 
+			return true;				
+	}
+
+}
+function sendMail()
+{
+   with(document.forms[0])
+	 {
+	 var CalFrm=0;
+	 var subTypeVar=0;
+	 
+	 
+	 if(RecordStatus.value == '' || RecordStatus.value == ' '|| RecordStatus.value == 0 || createm.value=='Create'){
+		CalFrm=4;
+		subTypeVar=1;
+		}
+		
+	if(createm.value=='Modify'){
+		CalFrm=6;
+		subTypeVar=2;
+		}
+		
+		<!$MGIF_Exchange>
+		CalFrm=7;
+		subTypeVar=5;
+		<!$MGENDIF>
+		<!$MGIF_FromCheckIn>
+		CalFrm=8;
+		subTypeVar=4;
+		<!$MGENDIF>
+		if(EmailByTemplate.value=="Y"){
+		NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=SendGetEmailSMSTemplate&Arguments=-A1,-AE,-A'+DocumentNo.value+',-A,-AE,-A1,-A'+subTypeVar,'SendMail','SendMail','resizable=1,channelmode=yes');
+		}
+		else{
+NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=ShowSendMail&Arguments=-ARA,-A,-A'+DocumentNo.value+',-A,-A'+CalFrm,'SendMail','SendMail','resizable=1,channelmode=yes');
+}
+	}
+}
+function PrintStmt()
+{ 
+ 	   NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=[P]AgreementAccountSTMT&Arguments=-A'+document.forms[0].DocumentNo.value,'StatementOfAccount','StatementOfAccount','left=50,top=50,HEIGHT=700,WIDTH=900,scrollbars=1,resizable=1');  
+}
+
+
+function EmailDoc()
+{
+	with(document.forms[0])
+	 {
+	 var CalFrm;
+	NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=ShowSendMail&Arguments=-ARA,-A,-A'+DocumentNo.value+',-A,-A'+CalFrm,'SendMail','SendMail','resizable=1,channelmode=yes');
+	}
+}
+
+function ViewAllInvoices()
+{
+	with(document.forms[0])
+	 { 
+	    
+	    NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&PrgName=AgrQAProceed&Arguments=-ARI,-A'+document.forms[0].DocumentNo.value,'AgrQAProceedPrint','AgrQAProceedPrint','left=120,top=40,HEIGHT=400,WIDTH=700,scrollbars=1,resizable=1')
+		
+	 
+	 }
+}
+function CallTammWS()
+{
+	with(document.forms[0])
+	{
+		 if(ApplyTamm.value=='Y' && NotEmptyField(TammRecordId.value))
+		 {
+		 <!$MGIF_Exchange>
+			var winhandle1=NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=TammTransactionQAProceed&Arguments=-A'+TammCalledFrom.value+',-A'+document.forms[0].DocumentNo.value+',-A,-A,-A,-A'+TammRecordId.value+',-AY','YardMasterCreateModify13','ModifyCancel11','left=40,top=45,HEIGHT=360,WIDTH=950,scrollbars=1,status=0,resizable=1'); 
+		 <!$MGENDIF>	
+		 }
+	}
+	return true;
+}
+function imposeMaxLength(Object, MaxLen)
+{  
+  return (Object.value.length < MaxLen);
+}
+function CloseAndSubmit()
+{
+ with(document.forms[0])
+ {
+	HideToolTipWindow('PMTOVRem');
+	proceed();
+ }
+}
+function checkSpcialChar(e) {
+	if(parseInt(document.forms[0].CompanyProgramCode.value)!=130 && parseInt(document.forms[0].CompanyProgramCode.value)!=137&& parseInt(document.forms[0].CompanyProgramCode.value)!=142)
+	{
+	if(ieType<=9.0){
+	if(!((e.keyCode >= 65) && (e.keyCode <= 90) || (e.keyCode >= 97) && (e.keyCode <= 122) || (e.keyCode >= 48) && (e.keyCode <= 57) || (e.keyCode == 32 ))){
+               //event.returnValue = false;
+               return false;
+            }
+            e.returnValue = true;
+        } 
+	else{
+		if(!((e.which >= 65) && (e.which <= 90) || (e.which >= 97) && (e.which <= 122) || (e.which >= 48) && (e.which <= 57) || (e.which == 32 ))){
+               //event.returnValue = false;
+               return false;
+            }
+            return true;
+	
+	}
+	}
+	else
+	{
+		return true;
+	}
+}
+
+
+function ReceiveSMS()
+{
+with(document.forms[0])
+	{
+		//if(CompanyFormat.value==115 && DrvRecvMsg.value !='Y')
+			if(CompanyFormat.value==115)
+			{ 
+				document.getElementById('SendSMS_BT').style.display='None'; 
+			}
+			
+			if( !(CheckInStr(AccessMenuRights,'RnInv')) )
+				{			
+					if(CompanyFormat.value==115 && AllowRentalInv.value !='Y' ) 
+						{ 
+							<!$MGIF_FromCheckIn>
+							Invoice_BT.disabled=true;
+							<!$MGENDIF>
+						}
+				}
+	}
+}
+
+function SaveContractReq(){
+	   
+	 
+				NewWin('/Tajeer.Server/SaveContract.aspx?AgreementNo='+document.getElementById('DocumentNo').value+ '&UserID='+document.getElementById('UserID').value,'Quotation','Extras','top=40,left=120,status=0,resizable=1,scrollbars=1');
+			      
+    
+	}
+	
+function makeSendOtpRequest(Contractid){
+	   
+	  $.ajax({  
+			
+		  type: "GET",  
+            url: "/TajeerAPI/api/SendOTP?contractNo=" + Contractid,  
+            contentType: "application/json; charset=utf-8",  
+            dataType: "json",  
+            success: function (data) {  
+             //  alert( data.id);
+               /* var id = data.id;
+               var contractNumber = data.contractNumber;
+                var token = data.token;
+				
+              //  var mainPaymentDetails_paid = result.mainPaymentDetails.paid
+			  
+				makeSendOtpRequest(id)
+				NewWin('https://tajeerstg.tga.gov.sa/#/public-contract/'+contractNumber+'/'+token,'Quotation','Extras','top=40,left=120,status=0,resizable=1,scrollbars=1');
+			  
+			 */
+            }, //End of AJAX Success function  
+  
+            failure: function (data) {  
+                alert(data.responseText);  
+            }, //End of AJAX failure function  
+            error: function (data) {  
+                alert(data.responseText);  
+            } //End of AJAX error function  
+  
+        });         
+    
+	}
+</SCRIPT>
+</HEAD>
+<BODY onload="javascript:Cursor();fullscreen();getSubExtras();CheckAgrSubExtras('0');StyleDisplay();TotalPaid();CallTammWS();ReceiveSMS();" oncontextmenu="return false;">
+<form action="/Magic94Scripts/mgrqispi94.dll" method="post" target="_top">
+	<INPUT type="hidden" name="APPNAME" value="RentProWeb">
+	<INPUT type="hidden" name="PRGNAME" value="CheckInProceed_DB_Invoice">
+	<input type="hidden" name="Arguments" value="DocumentNo,Dummy,Dummy,Dummy,SendEmailSMS,EmailMessage,-A,-A,-A,-A,MobileNo,SMSMessage,SMSReceiverName,GatewayNo,ApplicationType,ILicNo,DaysHours,AmountDue1,AmountPaid1,Balance1,FleetSubAssign,WeekendSum,LicDirtyStatus,RewriteYN,MoveDeposit,NewCheckInDate,NewCheckInTime,-A,-A,AgrBasedOnAgr,InvoiceRemark,-A,OptToSendSMSVal,-A,OutOfServiceYN,OutOfServiceReason,-A,CustomerInvoiceDate">
+	<input type="hidden" name="Total" value="<!$MG_HiddenTotal>">
+	<input type="hidden" name="UserID"  id="UserID" value="<!$MG_UserName>">
+	<input type="hidden" name="BranchCode" value="<!$MG_BranchCode>">
+	<input type="hidden" name="TariffIsDefault" value="<!$MG_TariffIsDefault>">
+	<input type="hidden" name="DocumentNo"  id="DocumentNo" value="<!$MG_DocumentNo>">
+	<input type="hidden" name="CalledFrom" value="<!$MG_CalledFrom>">
+	<input type="hidden" name="Rnd" value="<!$MG_Rnd>">
+	<input type="hidden" name="DebitorPrice" value="<!$MG_DebitorPrice>">
+	<input type="hidden" name="DiscountGreater" value="<!$MG_DiscountGreater>">
+	<input type="hidden" name="DiscountNotAllowed" value="<!$MG_DiscountNotAllowed>">
+	<input type="hidden" name="ReductionGreater" value="<!$MG_ReductionGreater>">
+	<input type="hidden" name="AgrCurrency" value="<!$MG_AgrCurrency>">
+	<input type="hidden" name="RentalReason" value="<!$MG_RentalReason>">
+	<input type="hidden" name="ShowSaveBT" value="<!$MG_showSaveBt>">
+	<input type="hidden" name="ShowPrices" value="<!$MG_ShowPrices>">
+	<input type="hidden" name="CourtesyAgr" value="<!$MG_CourtesyAgr>">
+	<input type="hidden" name="CompanyProgramCode" value="<!$MG_CompanyProgramCode>">
+	<input type="hidden" name="LicenceNo" value="<!$MG_CompanyProgramCode>">
+	<input type="hidden" name="LastSonNo" value="<!$MG_LastSonNo>">
+	<INPUT type="hidden" name="ProcessWindowNo" value="1">
+	<!-- Used For PopUp -->
+	<INPUT type="hidden" name="PopUpOpen" value="0">
+	<INPUT type="hidden" name="WhichPopUp" value=""><!-- 1 For Extras 2 Insurance 3 Insuranc Without vat -->
+	<INPUT type="hidden" name="closewindow" value="<!$MG_CloseWindow>">
+	<INPUT type="hidden" name="ApprovalNo" value="<!$MG_ApprovalNo>">
+	<INPUT type="hidden" name="DiscApprovalPending" value="<!$MG_DiscApprovalPending>">
+	<INPUT type="hidden" name="CompanyFormat" id="CompanyFormat" value="<!$MG_CompanyFormat>">
+	<INPUT type="hidden" name="NRTDriverFName" value="<!$MG_NRTDriverFName>">
+	<INPUT type="hidden" name="NRTDriverLName" value="<!$MG_NRTDriverLName>">
+	
+	<!-- Date:09-July-2009 SPR 55/499 Driver Deposit-->
+	<INPUT type="hidden" name="DriverSubTotal" value="<!$MG_DriverSubTotal>">
+	<INPUT type="hidden" name="DriverDepositEW" value="<!$MG_DriverDepositEW>">
+	<INPUT type="hidden" name="DriverDepositRecordFound" value="<!$MG_DriverDepositRecordFound>">
+	<input type="hidden" name="PassAuthYN" value="<!$MG_PassAuthYN>">
+	<input type="hidden" name="SubExtDtl" value="">
+	<input type="hidden" name="CheckOutBranch" value="<!$MG_CheckOutBranch>">
+	<input type="hidden" name="VatChanged" value="<!$MG_VatChanged>">
+	<input type="hidden" name="DebCreditLimitChkEWN" value="<!$MG_DebCreditLimitChkEWN>">
+	<input type="hidden" name="TotalDebitorDebitValue" value="<!$MG_TotalDebitorDebitValue>">
+	<input type="hidden" name="AuthorizationTotal" value="<!$MG_AuthorizationTotal>">
+	<input type="hidden" name="DebitorCreditLimit" value="<!$MG_DebitorCreditLimit>">
+	<input type="hidden" name="RecordStatus" value="<!$MG_RecordStatus>">
+	<INPUT type="hidden" name="SendEmailSMS" value="<!$MG_SendEmailSMS>">
+	<INPUT type="hidden" name="EmailMessage" value="<!$MG_EmailMessage>">
+	
+	<INPUT type="hidden" name="Override_PrintRule_YN" value="<!$MG_OVERRIDE_PRINTRULE>">
+	<INPUT type="hidden" name="PrintRuleChkEWN" value="<!$MG_PrintRuleChkEWN>">
+	<INPUT type="hidden" name="OnlyDrvAgr_YN" value="<!$MG_OnlyDrvAgr>">
+	<INPUT type="hidden" name="Total_DepSecurity_Val" value="0">
+	<INPUT type="hidden" name="Agr_Total_Val" value="<!$MG_DrvTotalTax1>">
+	<INPUT type="hidden" name="DrvPaid" value="<!$MG_DrvPaid1>">
+	<INPUT type="hidden" name="DrvBalance1" value="<!$MG_DrvBalance1>">
+	<INPUT type="hidden" name="createm" value="<!$MG_createm>">
+	<input type="hidden" name="GatewayNo" value="<!$MG_GatewayNo>"/>
+	<input type="hidden" name="ApplicationType" value="<!$MG_ApplicationType>"/>
+	<input type="hidden" name="SMSMessage" value="<!$MG_SMSMessage>"/>
+	<input type="hidden" name="SMSReceiverName" value="<!$MG_ReceiverName>" />
+	<input type="hidden" name="MobileNo" value="<!$MG_MobileNo>" />
+		<input type="hidden" name="AgrType" value="<!$MG_AgrType>">
+	<input type="hidden" name="AgrSubType" value="<!$MG_AgrSubType>">
+	<input type="hidden" name="ILicNo" value="<!$MG_ILicNo>">
+	<input type="hidden" name="IUnitNo" value="<!$MG_IUnitNo>">
+	<input type="hidden" name="ITransferNo" value="<!$MG_ITransferNo>">
+	<input type="hidden" name="ProceedClicked" value="0"> 	
+	<input type="hidden" name="ExtrasInvByUnit" value="<!$MG_ExtrasInvByUnit>"> 	
+	
+	<input type="hidden" name="AmountPaid1" value="">
+	<input type="hidden" name="AmountDue1" value=""> 	
+	<input type="hidden" name="Balance1" value="">
+	
+	<input type="hidden" name="TotalAmt1" value="<!$MG_TotalTaxAmount1>">
+	<input type="hidden" name="TotalPaid1" value="<!$MG_TotalPaid11>">
+    <input type="hidden" name="TotalBalance1" value="<!$MG_TotalBalance11>">
+	<INPUT type="hidden" name="YoungDrvInsEWNP"  id="YoungDrvInsEWNP" value="<!$MG_YoungDrvInsEWNP>">
+    <INPUT type="hidden" name="CheckYoungDrvInsRqP" id="CheckYoungDrvInsRqP" value="<!$MG_CheckYoungDrvInsRqP>">
+    <INPUT type="hidden" name="FleetSubAssign" id="FleetSubAssign" value="<!$MG_FleetSubAssign>">
+	<INPUT type="hidden" name="YoungDrvInsExistsValP"  id="YoungDrvInsExistsValP" value="">
+	<INPUT type="hidden" name="DebitorExistYN" id="DebitorExistYN" value="<!$MG_DebitorExistYN>">
+	<INPUT type="hidden" name="OutOfServiceYN" id="OutOfServiceYN" value="<!$MG_OutOfServiceYN>">
+	<INPUT type="hidden" name="OutOfServiceReason" id="OutOfServiceReason" value="<!$MG_OutOfServiceReason>">
+	
+	<INPUT type="hidden" name="SubExtFound" id="SubExtFound" value="">
+	<INPUT type="hidden" name="TotalPid" id="TotalPid" value="<!$MG_TotalPid>">
+	<INPUT type="hidden" name="TotalWithTax" id="TotalWithTax" value="<!$MG_TotalWithTax>">
+	<INPUT type="hidden" name="AllowInvCreate" id="AllowInvCreate" value="<!$MG_AllowInvCreate>">
+	<INPUT type="hidden" name="DebitorCode" id="DebitorCode" value="<!$MG_DebitorCode>">
+	<input type="hidden" name="DecimalPart" id="DecimalPart" value="<!$MG_DecimalPart>"/>
+		<INPUT type="hidden" name="RefReservationNo" id="RefReservationNo" value="<!$MG_RefReservationNo>">
+	<INPUT type="hidden" name="ReservationNo1" id="ReservationNo1" value="<!$MG_ReservationNo1>">
+	<INPUT type="hidden" name="WeekendSum" id="WeekendSum" value="<!$MG_WeekendSum>">
+	<INPUT type="hidden" name="LicDirtyStatus" id="LicDirtyStatus" value="<!$MG_LicDirtyStatus>">
+	<INPUT type="hidden" name="RewriteYN" id="RewriteYN" value="<!$MG_RewriteYN>">
+	<INPUT type="hidden" name="MoveDeposit" id="MoveDeposit" value="<!$MG_MoveDeposit>">
+	<INPUT type="hidden" name="NewCheckInDate" id="NewCheckInDate" value="<!$MG_NewCheckInDate>">
+	<INPUT type="hidden" name="NewCheckInTime" id="NewCheckInTime" value="<!$MG_NewCheckInTime>">
+	<INPUT type="hidden" id="CopyAgrVatClose" name="CopyAgrVatClose" value="<!$MG_CopyAgrVatCl>">
+	<INPUT type="hidden" id="AgrBasedOnAgr" name="AgrBasedOnAgr" value="">
+<input type="hidden" name="CSRFCode" id="CSRFCode" value="<!$MG_CSRFCode>">
+<input type="hidden" name="StopBillAgr" id="StopBillAgr" value="<!$MG_StopBillAgrYN>">
+<input type="hidden" name="AllowInternalAgr" id="AllowInternalAgr" value="<!$MG_AllowInternalAgr>"> 
+<input type="hidden" name="DriverCode" id="DriverCode" value="<!$MG_DriverCode>">
+<INPUT type="hidden" name="TammRecordId" id="TammRecordId" value="<!$MG_TammRecordId>">
+<INPUT type="hidden" name="TammCalledFrom" id="TammCalledFrom" value="G">
+<INPUT type="hidden" name="ApplyTamm" id="ApplyTamm" value="<!$MG_ApplyTamm>">
+<INPUT type="hidden" name="SMSByTemplate" id="SMSByTemplate" value="<!$MG_SMSByTemplate>">
+<INPUT type="hidden" name="SendSMS" id="SendSMS" value="<!$MG_SendSMS>">
+<INPUT type="hidden" name="AllowedPosSMS" id="AllowedPosSMS" value="<!$MG_AllowedPosSMS>">
+<INPUT type="hidden" id="SendSMSAltayyar" name="SendSMSAltayyar" value="">
+<INPUT type="hidden" id="DocType" name="DocType" value="">
+<INPUT type="hidden" id="EmailByTemplate" name="EmailByTemplate" value="<!$MG_EmailByTemplate>">
+<INPUT type="hidden" name="OptToSendSMS" id="OptToSendSMS" value="<!$MG_OptToSendSMS>">		
+<INPUT type="hidden" name="OptToSendSMSVal" id="OptToSendSMSVal" value="">	
+<INPUT type="hidden" name="DrvRecvMsg" id="DrvRecvMsg" value="<!$MG_DrvRecvMsg>">	
+<INPUT type="hidden" name="AllowRentalInv" id="AllowRentalInv" value="<!$MG_AllowRentalInv>">	
+<INPUT type="hidden" name="CustomerInvoiceDate" id="CustomerInvoiceDate" value="<!$MG_CustomerInvoiceDate>">
+<input type="hidden" name="OutStandingAmt" id="OutStandingAmt" value="">
+<input type="hidden" name="TajeerIntegrationYN"  id="TajeerIntegrationYN" value="<!$MG_TajeerIntegrationYN>">
+<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
+<tr>
+    <td valign="top" class="LeftCorner">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <td width="100%" valign="middle" class="MainHeader" >&nbsp;&nbsp;
+    <!$MGIF_CourtesyDisabled>&nbsp;<!$MGELSE>|^Calculation Of^| <!$MGENDIF> &nbsp;|^Agreement^|&nbsp;|^No.^|&nbsp;&nbsp;<!$MG_DocumentNo>&nbsp;&nbsp;&nbsp;<!$MGIF_SecretRate><font color="red"><b>* SECRET RATE</b></font><!$MGENDIF>
+		<div id="NoPrint" style="display:''"></td></div>
+    </td>
+    <td valign="middle" class="MainHeader" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+</tr>
+<tr>
+    <td valign="top" class="LeftBorder"><!--DWLayoutEmptyCell-->&nbsp;</td>				
+    <td width="100%">
+    <table class="Tablebox"  width="100%" border=0 cellPadding=0 cellSpacing=0 ><!-- Main Table -->
+
+<!$MGIF_CourtesyDisabled>
+
+		 </table>
+
+<!$MGELSE>
+
+    <tr>
+    <td width="60%" valign="top" colspan="4" width="100%">
+        <TABLE BORDER=2 CELLSPACING=1 CELLPADDING=1 class="box" width="100%" >
+        <col width="20%"></col>
+        <col width="30%"></col>
+        <col width="20%"></col>
+        <col width="30%"></col>
+        <tr><td class="NormalImgRightCorner" colspan = 4><span class="WindowHeader">&nbsp; &nbsp;|^Based On^|</span></td></tr>
+        <tr>
+            <td >|^Class^|</td>
+            <td ><INPUT TYPE="text"  class="readOnly_textInputFieldLG" readonly  value="<!$MG_Class>"></td>
+            <td >|^Currency^|</td>
+            <td ><INPUT TYPE="text"  class="readOnly_textInputFieldLG" readonly  value="<!$MG_Currency>"></td>
+        </tr>
+            <td >|^Tariff^|</td>
+            <td ><INPUT TYPE="text"  class="readOnly_textInputFieldLG" readonly  value="<!$MG_Tariff>"></td>
+            <td >|^Bill To^|</td>
+            <td ><INPUT TYPE="text"  class="readOnly_textInputFieldLG" readonly  value="<!$MG_BillTo>"></td>
+        </tr>
+        <tr>
+            <td >|^Rate^|</td>
+            <td >
+						<INPUT TYPE="text" name="RateNo" class="textInputFieldMd" readonly size=10 value="<!$MG_RateNo>">
+            <input type="button" value=".." class="zbutton" name="Rate_BT" onclick="NewWin('/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=RatesQuery&Arguments=-A<!$MG_DocumentNo>,-A,-A1,-A<!$MG_DocumentType>','RatesList','RatesList','height=650,WIDTH=700,top=40,LEFT=120,scrollbars=1,resizable=1');">
+            <INPUT TYPE="text" name="RateName" class="readOnly_textInputFieldLG" readonly size=20 value="<!$MG_RateName>">
+            </td>
+            <td ><!$MGIF_ShowDayHourse>|^Total Days & Hours^|<!$MGELSE>|^Total Minutes^|<!$MGENDIF></td>
+            <td ><INPUT TYPE="text" name="DaysHours" class="readOnly_textInputFieldLG" readonly  value="<!$MG_TotalDays&Hours>"></td>
+        </tr>
+        <tr>
+            <td >|^Package^|</td>
+            <td ><INPUT TYPE="text"  class="readOnly_textInputFieldLG" readonly  value="<!$MG_Package>">&nbsp;&nbsp;&nbsp;&nbsp;|^Charge Group^|
+            <INPUT TYPE="text"  class="readOnly_textInputFieldLG" readonly style = "width: 70px" value="<!$MG_ChargeGroup>"></td>
+            <td >|^Auth/Voucher Days & Hours^|</td>
+            <td ><INPUT TYPE="text"  class="readOnly_textInputFieldLG" readonly  value="<!$MG_AuthVocuherDays&Hours>"></td>
+        </tr>
+        </table>
+    </td>
+    </tr>
+    <tr>
+        <td  valign="top" width="35%">
+        <TABLE border=1 cellPadding=1 cellSpacing=1 class="box" width="100%">
+				<tr><th  colspan = 2 style = "height: 20px">|^Elements^|</th></tr>
+        <TR>	
+            <TD nowrap>&nbsp;|^Rental Sum^|&nbsp;</TD>
+            <TD nowrap align="right"><!$MGIF_ShowWeekendRow>&nbsp;|^Weekend Price^|:<!$MG_WeekendCharges>&nbsp;&nbsp;&nbsp;<!$MGENDIF>|^Package Price^|:<!$MG_PackPrice></TD>
+        </TR>
+        <TR>	
+            <TD  nowrap>&nbsp;|^Extension^|&nbsp;</TD>
+            <TD nowrap align="right">&nbsp;|^Extension Price^|:<!$MG_ExtPrice></TD>
+        </TR>
+        <TR>	
+            <TD  nowrap>&nbsp;|^Km/M^|&nbsp;</TD>
+            <TD nowrap align="right">|^Free^|:<!$MG_FreeKm>&nbsp;&nbsp;&nbsp;|^Chargable^|:<!$MG_ChargebleKm>&nbsp;&nbsp;&nbsp;|^Price^|:<!$MG_KMprice></TD>
+        </TR>
+        <TR>	
+            <TD  nowrap  height="20"  >&nbsp;|^Insurance^|&nbsp;</TD>
+            <TD  nowrap align="right" rowspan="2" valign="middle">&nbsp;<img src="/EngDev/Images94/expand.gif" alt="Insurance" id="InsuranceZoomId" onclick="RemarkPopup(2,'InsuranceZoomId',event);" height="16" align="absmiddle"  />&nbsp;</TD>				
+        </TR>
+        <TR>	
+            <TD  nowrap  height="20"  >&nbsp;|^Insurance without VAT^|&nbsp;</TD>
+        </TR>
+      	<TR>	
+      		    <TD  nowrap>&nbsp;|^Discount^|&nbsp;(-)</TD>
+      				<TD nowrap align="right">&nbsp;	<!$MG_DiscountReason>&nbsp;&nbsp;<!$MG_DiscountPer></TD>
+      	</TR>
+      	<TR>	
+      		    <TD  nowrap colspan="2">&nbsp;|^Airport Fee^|&nbsp;</TD>
+      	</TR>
+      	<TR>	
+      		    <TD  nowrap  height="20"  >&nbsp;|^Extra^|&nbsp;</TD>
+      		    <TD  nowrap align="right" >&nbsp;<img src="/EngDev/Images94/expand.gif" alt="Extra" id="ExtraZoomId" onclick="RemarkPopup(1,'ExtraZoomId',event);"  height="16" align="absmiddle" />&nbsp;</TD>
+      	</TR>
+      	<TR>	
+      		    <TD  nowrap  height="20"  >&nbsp;|^Fuel^|&nbsp;</TD>
+      				<TD nowrap align="right">&nbsp;<img src="/EngDev/Images94/expand.gif" alt="Fuel" id="FuelZoomId" height="16" onclick="RemarkPopup(4,'FuelZoomId',event);" align="absmiddle" />&nbsp;</TD>
+      	</TR>
+      		<TR>	
+      		    <TD  nowrap  height="20" >&nbsp;|^Other Charge^|&nbsp;</TD>
+      				<TD  nowrap align="right">&nbsp;<!$MG_OtherChargeCode>&nbsp;<img src="/EngDev/Images94/expand.gif" alt="Others" id="OthersZoomId" height="16" onclick="RemarkPopup(8,'OthersZoomId',event);" align="absmiddle" />&nbsp;</TD>
+      	</TR>
+      	<TR>	
+      		    <TD  nowrap colspan="1">&nbsp;|^Damage^|&nbsp;</TD>
+					 <TD  nowrap colspan="1" align="right">&nbsp; <!$MGIF_DamageAdminFeeExist>( |^Admin Fee^| : <!$MG_DamageAdminFee> ) <!$MGENDIF> &nbsp;</TD>
+      	</TR>
+      	<TR>	
+      		    <TD  nowrap colspan="1">&nbsp;|^Deductible^|&nbsp;</TD>
+					<TD  nowrap colspan="1" align="right">&nbsp; <!$MGIF_DedAdminFeeExist>( |^Admin Fee^| : <!$MG_DedAdminFee> ) <!$MGENDIF> &nbsp;</TD>	  					
+      	</TR>
+      	<TR>	
+      		    <TD  nowrap >&nbsp;|^Traffic^|&nbsp;</TD>
+      				<TD  nowrap align="right" rowspan="2" valign="middle">&nbsp;<img src="/EngDev/Images94/expand.gif" alt="Traffic Tickets" id="TrafficTicketsZoomId" onclick="RemarkPopup(5,'TrafficTicketsZoomId',event);"  height="16" align="absmiddle" />&nbsp;</TD>
+      	</TR>
+      	<TR>	
+      		    <TD  nowrap >&nbsp;|^Traffic Admin Fee^|&nbsp;</TD>
+      				
+      	</TR>
+      	<TR>	
+      		    <TD  nowrap >&nbsp;|^Toll Fee^|&nbsp;</TD>
+      				<TD  nowrap align="right" rowspan="2" valign="middle">&nbsp;<img src="/EngDev/Images94/expand.gif" alt="Toll Fee" id="TollFeeZoomId" onclick="RemarkPopup(7,'TollFeeZoomId',event);"  height="16" align="absmiddle" />&nbsp;</TD>
+      	</TR>
+      	<TR>	
+      		    <TD  nowrap >&nbsp;|^Toll Admin Fee^|&nbsp;</TD>
+      				
+      	</TR>	
+      	<TR>	
+      		    <TD  nowrap colspan="2">&nbsp;|^Drop Off Fee^|&nbsp;</TD>
+      	</TR>
+      	<TR>	
+      		    <TD  nowrap colspan="2">&nbsp;|^Delivery^|&nbsp;</TD>
+      	</TR>
+      	<TR>	
+      		    <TD  nowrap colspan="2">&nbsp;|^Pickup^|&nbsp;</TD>
+      	</TR>
+      	<TR>	
+      		    <TD  nowrap class="bottomBlueBorder">&nbsp;|^Reduction^|&nbsp;(-)</TD>
+      				<TD  nowrap align="right" class="bottomBlueBorder">&nbsp;<!$MG_ReductionReason>&nbsp;</TD>
+      	</TR>
+		<TR id="RedeemAmtDisp">	
+      		    <TD  nowrap colspan=3 class="bottomBlueBorder">&nbsp;|^Redeemed Points Amount^|&nbsp;(-)</TD>
+      				
+      	</TR>
+		<TR id="FreeDAyAmtDisp">	
+      		    <TD  nowrap colspan=3 class="bottomBlueBorder">&nbsp;|^Free Days Amount^|&nbsp;(-)</TD>
+      				
+      	</TR>
+      	<TR>	
+      		    <TD  nowrap colspan="2">&nbsp;|^Sub Total^|&nbsp;</TD>
+      	</TR>
+      	<!$MGIF_ServiceBeforeAfter>
+      	<TR>	
+      		    <TD  nowrap colspan="2">&nbsp;|^Service Amount^|&nbsp;</TD>
+      	</TR>
+      	<TR>	
+      		    <TD  nowrap colspan="2" class="bottomBlueBorder">&nbsp;|^VAT Amount^|&nbsp;</TD>
+      	</TR>
+		<!$MGIF_DualVat>
+		<TR>	
+      		    <TD  nowrap colspan="2" class="bottomBlueBorder">&nbsp;|^<!$MG_DualVatPer> % VAT Amount^|&nbsp;</TD>
+      	</TR>
+		<!$MGENDIF>
+      	<!$MGELSE>
+      	<TR>	
+      		    <TD  nowrap colspan="2">&nbsp;|^VAT Amount^|&nbsp;</TD>
+      	</TR>
+		<!$MGIF_DualVat>
+		<TR>	
+      		    <TD  nowrap colspan="2" class="bottomBlueBorder">&nbsp;|^<!$MG_DualVatPer> % VAT Amount^|&nbsp;</TD>
+      	</TR>
+		<!$MGENDIF>
+      	<TR>	
+      		    <TD  nowrap colspan="2" class="bottomBlueBorder">&nbsp;|^Service Amount^|&nbsp;</TD>
+      	</TR>
+      	<!$MGENDIF>
+      	<TR>	
+      		    <TD  nowrap colspan="2">&nbsp;|^Total+Tax^|&nbsp;</TD>
+      	</TR>
+      	<TR>	
+      		    <TD  nowrap colspan="2" class="bottomBlueBorder">&nbsp;|^Paid^|&nbsp;</TD>
+      	</TR>
+		<TR id="TotalPaid3" style="display: none">	
+      		    <TD  nowrap colspan="2" class="bottomBlueBorder">&nbsp;|^Total Paid (On Invoices)^|&nbsp;</TD>
+      	</TR>
+      	<TR>	
+      		    <TD  nowrap colspan="2">&nbsp;|^Balance^|&nbsp;</TD>
+      	</TR>
+      	<TR>	
+      		    <TD  nowrap>&nbsp;|^Balance In^|&nbsp;</td>
+      				<td nowrap align="right" >
+      						<select name="Currency" onchange="Changebalance(this.value);" class="textInputField_CmbLr">&nbsp;&nbsp;&nbsp;
+      						<!$MGREPEAT>
+      		         <option value="<!$MG_CurrencyHistoryRate>" <!$MGIF_SelectedCurr> selected <!$MGENDIF> >  <!$MG_CurrencyHistoryValue>
+      						<!$MGENDREPEAT>
+      						</select>
+      				</TD>
+      	</TR>
+        </table>
+        </TD>
+        <TD  valign="top" width="25%">
+        <div id="Drvonly" style="display:''">
+        <TABLE border=1 cellPadding=1 cellSpacing=1  class="box" width="100%">
+        <TR >					
+            <th style = "height: 20px">|^Driver^|</th>
+            <th>|^Vat %^|</th>
+            <th>|^Service %^|</th>										
+        </TR>
+        <TR>
+      		  <TD align="right"><!$MG_DrvRentalSum>&nbsp;</TD>
+      		  <TD align="right"><!$MG_DrvRentalVAT>&nbsp;</TD>
+      			<TD align="right"><!$MG_DrvRentalService>&nbsp;</TD>
+        </TR>
+      	<TR>
+        	  <TD align="right"><!$MG_DrvExtension>&nbsp;</TD>	 	
+      		  <TD align="right"><!$MG_DrvExtensionVAT>&nbsp;</TD>
+      		  <TD align="right"><!$MG_DrvExtensionService>&nbsp;</TD>
+      	</TR>
+      	<TR>
+      	 	 	<TD align="right"><!$MG_DrvKmSum>&nbsp;</TD>	 	
+      		  <TD align="right"><!$MG_DrvKmVAT>&nbsp;</TD>
+      		  <TD align="right"><!$MG_DrvKmService>&nbsp;</TD>
+        </TR>
+        <TR>
+      		<TD align="right"  height="20" ><!$MG_DrvVATInsur>&nbsp;</TD>	 	
+      	  <TD align="right"><!$MG_DrvVatInsurVat>&nbsp;</TD>
+      	  <TD align="right"><!$MG_DrvVatInsurService>&nbsp;</TD>
+        </TR>
+        <TR>
+      		<TD align="right"  height="20" ><!$MG_DrvNonVATInsur>&nbsp;</TD>	 	
+      	  <TD align="right">&nbsp;</TD>
+      	  <TD align="right"><!$MG_DrvNonVatInsurService>&nbsp;</TD>
+        </TR>
+      	<TR>
+      	 	<TD align="right"><!$MG_DrvDiscount>&nbsp;</TD>	 	
+      	  <TD align="right"><!$MG_DrvDiscountVAT>&nbsp;</TD>
+      	  <TD align="right"><!$MG_DrvDiscountService>&nbsp;</TD>
+        </TR>
+      	<TR>
+      	 	<TD align="right"><!$MG_DrvAirportFee>&nbsp;</TD>	 	
+      	  <TD align="right"><!$MG_DrvAirportVAT>&nbsp;</TD>
+      	  <TD align="right"><!$MG_DrvAirportService>&nbsp;</TD>
+        </TR>
+        <TR>
+          <TD align="right"  height="20" ><!$MG_DrvExtraSum>&nbsp;</TD>	 	
+      		<TD align="right"><!$MG_DrvExtraVAT>&nbsp;</TD>
+      		<TD align="right"><!$MG_DrvExtraService>&nbsp;</TD>
+        </TR>
+        <TR>
+       	  <TD align="right"  height="20" ><!$MG_DrvFuel>&nbsp;</TD>	 	
+      		<TD align="right"><!$MG_DrvFuelVAt>&nbsp;</TD>
+      		<TD align="right"><!$MG_DrvFuelService>&nbsp;</TD>
+        </TR>
+        <TR>
+      	  <TD align="right"  height="20" ><!$MG_DrvOthers>&nbsp;</TD>
+      	  <TD align="right"><!$MG_DrvOthersVAT>&nbsp;</TD>
+      	  <TD align="right"><!$MG_DrvOthersService>&nbsp;</TD>		
+        </TR>
+        <TR>
+      		<TD  align="right"><!$MG_DrvDamager>&nbsp;</TD>
+       	  <TD align="right"><!$MG_DrvDmgVAT>&nbsp;</TD>
+      	  <TD align="right"><!$MG_DrvDmgService>&nbsp;</TD>
+        </TR>
+      	<TR>
+      		<TD  align="right"><!$MG_DrvDeductble>&nbsp;</TD>
+       	  <TD align="right"><!$MG_DrvDeductibleVAT>&nbsp;</TD>
+      	  <TD align="right"><!$MG_DrvDeductibleService>&nbsp;</TD>
+        </TR>
+      	<TR>
+      		<TD align="right" ><!$MG_DrvTraffic>&nbsp;</TD>
+       	  <TD align="right"><!$MG_DrvTrafficVAT>&nbsp;</TD>
+      	  <TD align="right"><!$MG_DrvTrafficService>&nbsp;</TD>
+        </TR>
+      	<TR>
+      		<TD align="right" ><!$MG_DrvTrafficAdminfee>&nbsp;</TD>
+       	  <TD align="right"><!$MG_DrvTrafficAdminVAT>&nbsp;</TD>
+      	  <TD align="right"><!$MG_DrvTrafficAdminService>&nbsp;</TD>
+        </TR>
+      	<TR>
+      		<TD align="right" ><!$MG_DrvToll>&nbsp;</TD>
+       	  <TD align="right"><!$MG_DrvTollVAT>&nbsp;</TD>
+      	  <TD align="right"><!$MG_DrvTollService>&nbsp;</TD>
+        </TR>
+      	<TR>
+      		<TD align="right" ><!$MG_DrvTollAdminfee>&nbsp;</TD>
+       	  <TD align="right"><!$MG_DrvTollAdminVAT>&nbsp;</TD>
+      	  <TD align="right"><!$MG_DrvTollAdminService>&nbsp;</TD>
+        </TR>	
+      	<TR>
+      	 	<TD align="right"><!$MG_DrvDropOff>&nbsp;</TD>	 	
+      	  <TD align="right"><!$MG_DrvDropOffVAT>&nbsp;</TD>
+      	  <TD align="right"><!$MG_DrvDropOffService>&nbsp;</TD>
+        </TR>
+      	<TR>
+      	 	<TD align="right"><!$MG_DrvDelivery>&nbsp;</TD>	 	
+      	  <TD align="right"><!$MG_DrvDeliveryVAT>&nbsp;</TD>
+      	  <TD align="right"><!$MG_DrvDeliveryService>&nbsp;</TD>
+        </TR>
+      	<TR>
+      	 	<TD align="right"><!$MG_DrvPickup>&nbsp;</TD>	 	
+      	  <TD align="right"><!$MG_DrvPickupVAT>&nbsp;</TD>
+      	  <TD align="right"><!$MG_DrvPickupService>&nbsp;</TD>
+        </TR>
+      	<TR>
+      			<TD class="bottomBlueBorder" align="right"><!$MG_DrvReduction>&nbsp;</TD>	 	
+      		  <TD class="bottomBlueBorder" align="right"><!$MG_DrvReductionVAT>&nbsp;</TD>
+      		  <TD class="bottomBlueBorder" align="right"><!$MG_DrvReductionService>&nbsp;</TD>
+        </TR>
+		<tr id="RedeedPtDtl">
+			<TD  nowrap align="right"  class="bottomBlueBorder">&nbsp;<!$MG_RedeemedPointsAmt>&nbsp;</TD>
+			<TD align="right">&nbsp;</TD>
+			<TD align="right">&nbsp;</TD>
+		</tr>
+		<tr id="DaysDtl">
+			<TD  nowrap align="right" class="bottomBlueBorder">&nbsp;<!$MG_FreedaysAmount>&nbsp;</TD>
+			<TD align="right">&nbsp;</TD>
+			<TD align="right">&nbsp;</TD>
+		</tr>
+      	<TR>
+      			<TD align="right"><!$MG_DrvSubTotal>&nbsp;</TD>	 	
+      		  <TD>&nbsp;</TD>
+      		  <TD>&nbsp;</TD>
+        </TR>
+      	<!$MGIF_ServiceBeforeAfter>
+      	<TR>
+      			 <TD  align="right"><!$MG_DrvServiceAmount>&nbsp;</TD>
+      			<TD  colspan="2">|^On^|<!$MG_DrvServicableAmount>&nbsp;</TD>	 	
+      	 </TR>
+      	 <TR>
+      			<TD align="right" class="bottomBlueBorder"><!$MG_DrvVATAmount>&nbsp;</TD>
+      			<TD colspan="2" class="bottomBlueBorder">|^On^|<!$MG_DrvTaxableAmount>&nbsp;</TD>	 	
+      	</TR>
+		<!$MGIF_DualVat>
+		<TR>	
+      		    <TD align="right" class="bottomBlueBorder"><!$MG_DrvDualVATAmount>&nbsp;</TD>
+      			<TD colspan="2" class="bottomBlueBorder">|^On^|<!$MG_DrvDualTaxableAmount>&nbsp;</TD>
+      	</TR>
+		<!$MGENDIF>
+      	<!$MGELSE>
+      	<TR>
+      			<TD align="right" ><!$MG_DrvVATAmount>&nbsp;</TD>
+      			<TD colspan="2" >|^On^|<!$MG_DrvTaxableAmount>&nbsp;</TD>	 	
+      	</TR>
+		<!$MGIF_DualVat>
+		<TR>	
+      		    <TD align="right" class="bottomBlueBorder"><!$MG_DrvDualVATAmount>&nbsp;</TD>
+      			<TD colspan="2" class="bottomBlueBorder">|^On^|<!$MG_DrvDualTaxableAmount>&nbsp;</TD>
+      	</TR>
+		<!$MGENDIF>
+      	<TR>
+      			 <TD  align="right" class="bottomBlueBorder"><!$MG_DrvServiceAmount>&nbsp;</TD>
+      			<TD  colspan="2" class="bottomBlueBorder">|^On^|<!$MG_DrvServicableAmount>&nbsp;</TD>	 	
+      	 </TR>
+      	<!$MGENDIF>
+      	<TR>
+      			<TD align="right"><!$MG_DrvTotal+Tax>&nbsp;</TD>	 	
+      		  <TD>&nbsp;</TD>
+      		  <TD>&nbsp;</TD>
+        </TR>
+      	<TR>
+      			<TD class="bottomBlueBorder" align="right"><!$MG_DrvPaid>&nbsp;</TD>	 	
+      		  <TD class="bottomBlueBorder">&nbsp;</TD>
+      		  <TD class="bottomBlueBorder">&nbsp;</TD>
+        </TR>
+		<TR id="TotalPaid4" style="display: none" align="right">
+      		  <TD class="bottomBlueBorder">&nbsp;<!$MG_DrvPaidInvoice></TD>	 	
+      		  <TD class="bottomBlueBorder">&nbsp;</TD>
+      		  <TD class="bottomBlueBorder">&nbsp;</TD>
+        </TR>
+      	<TR>
+        		<TD align="right"><!$MG_DrvBalance>&nbsp;</TD>	 	
+      		  <TD>&nbsp;</TD>
+      		  <TD>&nbsp;</TD>
+        </TR>
+      	<TR>
+      			<TD align="right"><input type="text" name="DrvBalaceIn" value="<!$MG_DrvBalanceIn>" class="readOnly_textInputField_AmtLr" size="12" readonly style="text-align: right;">&nbsp;</TD>	 	
+      		  <TD>&nbsp;</TD>
+      		  <TD>&nbsp;</TD>
+        </TR>
+        </TABLE>
+        </div>
+        </TD>
+
+        <!$MGIF_NotDriverAgreement>
+        <TD  valign="top" width="25%">
+        <div id="DebOnly" style="display:''">
+        <TABLE border=1 cellPadding=1 cellSpacing=1  class="box" width="100%">
+        <TR >
+            <th style = "height: 20px">|^Debitor^|</th>
+            <th >|^Vat %^|</th>
+            <th >|^Service %^|</th>										
+        </TR>
+        <TR>
+      		  <TD align="right"><!$MG_CustRentalSum>&nbsp;</TD>
+      		  <TD align="right"><!$MG_CustRentalVAT>&nbsp;</TD>
+      			<TD align="right"><!$MG_CustRentalService>&nbsp;</TD>
+        </TR>
+      	<TR>
+        	  <TD align="right"><!$MG_CustExtension>&nbsp;</TD>	 	
+      		  <TD align="right"><!$MG_CustExtensionVAT>&nbsp;</TD>
+      		  <TD align="right"><!$MG_CustExtensionService>&nbsp;</TD>
+      	</TR>
+      	<TR>
+      	 	 	<TD align="right"><!$MG_CustKmSum>&nbsp;</TD>	 	
+      		  <TD align="right"><!$MG_CustKmVAT>&nbsp;</TD>
+      		  <TD align="right"><!$MG_CustKmService>&nbsp;</TD>
+        </TR>
+        <TR>
+      		<TD align="right"  height="20" ><!$MG_CustVATInsur>&nbsp;</TD>	 	
+      	  <TD align="right"><!$MG_CustVatInsurVat>&nbsp;</TD>
+      	  <TD align="right"><!$MG_CustVatInsurService>&nbsp;</TD>
+        </TR>
+        <TR>
+      		<TD align="right"  height="20" ><!$MG_CustNonVATInsur>&nbsp;</TD>	 	
+      	  <TD align="right"><!$MG_CustNonVATInsurVat>&nbsp;</TD>
+      	  <TD align="right"><!$MG_CustNonVatInsurService>&nbsp;</TD>
+        </TR>
+      	<TR>
+      	 	<TD align="right"><!$MG_CustDiscount>&nbsp;</TD>	 	
+      	  <TD align="right"><!$MG_CustDiscountVAT>&nbsp;</TD>
+      	  <TD align="right"><!$MG_CustDiscountService>&nbsp;</TD>
+        </TR>
+      	<TR>
+      	 	<TD align="right"><!$MG_CustAirportFee>&nbsp;</TD>	 	
+      	  <TD align="right"><!$MG_CustAirportVAT>&nbsp;</TD>
+      	  <TD align="right"><!$MG_CustAirportService>&nbsp;</TD>
+        </TR>
+        <TR>
+          <TD align="right"  height="20" ><!$MG_CustExtraSum>&nbsp;</TD>	 	
+      		<TD align="right"><!$MG_CustExtraVAT>&nbsp;</TD>
+      		<TD align="right"><!$MG_CustExtraService>&nbsp;</TD>
+        </TR>
+        <TR>
+       	  <TD align="right"  height="20" ><!$MG_CustFuel>&nbsp;</TD>	 	
+      		<TD align="right"><!$MG_CustFuelVAt>&nbsp;</TD>
+      		<TD align="right"><!$MG_CustFuelService>&nbsp;</TD>
+        </TR>
+         <TR>
+      	  <TD align="right"  height="20" ><!$MG_CustOthers>&nbsp;</TD>
+      	  <TD align="right"><!$MG_CustOthersVAT>&nbsp;</TD>
+      	  <TD align="right"><!$MG_CustOthersService>&nbsp;</TD>		
+        </TR>
+        <TR>
+      		<TD align="right" ><!$MG_CustDamage>&nbsp;</TD>
+       	  <TD align="right"><!$MG_CustDamageVat>&nbsp;</TD>
+      	  <TD align="right"><!$MG_CustDamageService>&nbsp;</TD>
+        </TR>
+      	<TR>
+      		<TD align="right" ><!$MG_CustDeductible>&nbsp;</TD>
+       	  <TD align="right"><!$MG_CustDeductibleVat>&nbsp;</TD>
+      	  <TD align="right"><!$MG_CustDeeuctbleService>&nbsp;</TD>
+        </TR>
+      	<TR>
+      		<TD align="right" ><!$MG_CustTraffic>&nbsp;</TD>
+       	  <TD align="right"><!$MG_CustTrafficVat>&nbsp;</TD>
+      	  <TD align="right"><!$MG_CustTrafficService>&nbsp;</TD>
+        </TR>
+      	<TR>
+      		<TD align="right" ><!$MG_CustTrafficAdminFee>&nbsp;</TD>
+       	  <TD align="right"><!$MG_CustTrafficAdminVat>&nbsp;</TD>
+      	  <TD align="right"><!$MG_CustTrafficAdminService>&nbsp;</TD>
+        </TR>
+      		<TR>
+      		<TD align="right" ><!$MG_CustToll>&nbsp;</TD>
+       	  <TD align="right"><!$MG_CustTollVat>&nbsp;</TD>
+      	  <TD align="right"><!$MG_CustTollService>&nbsp;</TD>
+        </TR>
+      	<TR>
+      		<TD align="right" ><!$MG_CustTollAdminFee>&nbsp;</TD>
+       	  <TD align="right"><!$MG_CustTollAdminVat>&nbsp;</TD>
+      	  <TD align="right"><!$MG_CustTollAdminService>&nbsp;</TD>
+        </TR>
+      	<TR>
+      	 	<TD align="right"><!$MG_CustDropOff>&nbsp;</TD>	 	
+      	  <TD align="right"><!$MG_CustDropOffVAT>&nbsp;</TD>
+      	  <TD align="right"><!$MG_CustDropOffService>&nbsp;</TD>
+        </TR>
+      	<TR>
+      	 	<TD align="right"><!$MG_CustDelivery>&nbsp;</TD>	 	
+      	  <TD align="right"><!$MG_CustDeliveryVAT>&nbsp;</TD>
+      	  <TD align="right"><!$MG_CustDeliveryService>&nbsp;</TD>
+        </TR>
+      	<TR>
+      	 	<TD align="right"><!$MG_CustPickup>&nbsp;</TD>	 	
+      	  <TD align="right"><!$MG_CustPickupVAT>&nbsp;</TD>
+      	  <TD align="right"><!$MG_CustPickupService>&nbsp;</TD>
+        </TR>
+      	<TR>
+      			<TD class="bottomBlueBorder" align="right"><!$MG_CustReduction>&nbsp;</TD>	 	
+      		  <TD class="bottomBlueBorder" align="right"><!$MG_CustReductionVAT>&nbsp;</TD>
+      		  <TD class="bottomBlueBorder" align="right"><!$MG_CustReductionService>&nbsp;</TD>
+        </TR>
+      	<TR>
+      			<TD align="right"><!$MG_CustSubTotal>&nbsp;</TD>	 	
+      		  <TD>&nbsp;</TD>
+      		  <TD>&nbsp;</TD>
+        </TR>
+      	<!$MGIF_ServiceBeforeAfter>
+      	<TR>
+      			<TD  align="right"><!$MG_CustServiceAmount>&nbsp;</TD>	 	
+      		  <TD colspan="2">|^On^|<!$MG_CustServicableAmount>&nbsp;</TD>
+      		 
+        </TR>
+      	<TR>
+      			<TD align="right" class="bottomBlueBorder"><!$MG_CustVATAmount>&nbsp;</TD>	 	
+      		  <TD colspan="2" class="bottomBlueBorder">|^On^|<!$MG_CustTaxableAmount>&nbsp;</TD>
+       </TR>
+	   <!$MGIF_DualVat>
+		<TR>
+      			<TD align="right" class="bottomBlueBorder"><!$MG_CustDualVATAmount>&nbsp;</TD>	 	
+      		  <TD colspan="2" class="bottomBlueBorder">|^On^|<!$MG_CustDualTaxableAmount>&nbsp;</TD>
+       </TR>
+		<!$MGENDIF>
+       <!$MGELSE>
+       <TR>
+      			<TD align="right" ><!$MG_CustVATAmount>&nbsp;</TD>	 	
+      		  <TD colspan="2">|^On^|<!$MG_CustTaxableAmount>&nbsp;</TD>
+       </TR>
+	   <!$MGIF_DualVat>
+		<TR>
+      			<TD align="right" class="bottomBlueBorder"><!$MG_CustDualVATAmount>&nbsp;</TD>	 	
+      		  <TD colspan="2" class="bottomBlueBorder">|^On^|<!$MG_CustDualTaxableAmount>&nbsp;</TD>
+       </TR>
+		<!$MGENDIF>
+       <TR>
+      			<TD  align="right" class="bottomBlueBorder"><!$MG_CustServiceAmount>&nbsp;</TD>	 	
+      		  <TD colspan="2"  class="bottomBlueBorder">|^On^|<!$MG_CustServicableAmount>&nbsp;</TD>
+      		 
+        </TR>
+       <!$MGENDIF>
+      	<TR>
+      			<TD align="right"><!$MG_CustTotal+Tax>&nbsp;</TD>	 	
+      		  <TD>&nbsp;</TD>
+      		  <TD>&nbsp;</TD>
+        </TR>
+      	<TR>
+      			<TD align="right" class="bottomBlueBorder"><!$MG_CustPaid>&nbsp;</TD>	 	
+      		  <TD class="bottomBlueBorder">&nbsp;</TD>
+      		  <TD class="bottomBlueBorder">&nbsp;</TD>
+        </TR>
+		<TR id="TotalPaid5" style="display: none" align="right">
+      		  <TD class="bottomBlueBorder">&nbsp;<!$MG_CustPaidInvoice></TD>	 	
+      		  <TD class="bottomBlueBorder">&nbsp;</TD>
+      		  <TD class="bottomBlueBorder">&nbsp;</TD>
+        </TR>
+      	<TR>
+        		<TD align="right"><!$MG_CustBalance>&nbsp;</TD>	 	
+      		  <TD>&nbsp;</TD>
+      		  <TD>&nbsp;</TD>
+        </TR>
+      	<TR>
+      			<TD align="right"><input type="text" name="CustBalaceIn" value="<!$MG_CustBalanceIn>" class="readOnly_textInputField_AmtLr" size="12" style="text-align: right;" readonly>&nbsp;</TD>	 	
+      		  <TD>&nbsp;</TD>
+      		  <TD>&nbsp;</TD>
+        </TR>
+      	</TABLE>
+        </div>
+        </TD>
+        <TD  valign="top" width="15%">
+        <div id="NoTotal" style="display:''">
+        <TABLE border=1 cellPadding=1 cellSpacing=1  class="box"  width="100%">
+        <TR >
+            <th style = "height: 20px">|^Total^|</th>
+        </TR>
+        <TR>
+      		  <TD align="right"><!$MG_TotalRentalSum>&nbsp;</TD>
+        </TR>
+      	<TR>
+        	  <TD align="right"><!$MG_TotalExtension>&nbsp;</TD>	 	
+      	</TR>
+      	<TR>
+      	 	 	<TD align="right"><!$MG_TotalKmSum>&nbsp;</TD>	 	
+        </TR>
+        <TR>
+      		<TD align="right"  height="20" ><!$MG_TotalVATInsur>&nbsp;</TD>	 	
+        </TR>
+        <TR>
+      		<TD align="right"  height="20" ><!$MG_TotalNonVATInsur>&nbsp;</TD>	 	
+        </TR>
+      	<TR>
+      	 	<TD align="right"><!$MG_TotalDiscount>&nbsp;</TD>	 	
+        </TR>
+      	<TR>
+      	 	<TD align="right"><!$MG_TotalAirportFee>&nbsp;</TD>	 	
+        </TR>
+        <TR>
+          <TD align="right"  height="20" ><!$MG_TotalExtraSum>&nbsp;</TD>	 	
+        </TR>
+        <TR>
+       	  <TD align="right"  height="20" ><!$MG_TotalFuel>&nbsp;</TD>	 	
+        </TR>
+          <TR>
+      	  <TD align="right"  height="20"><!$MG_TotalOthers>&nbsp;</TD>
+        </TR>
+        <TR>
+      		<TD align="right" ><!$MG_TotalDamage>&nbsp;</TD>
+        </TR>
+      	<TR>
+      		<TD  align="right"><!$MG_TotalDeductible>&nbsp;</TD>
+        </TR>
+      	<TR>
+      		<TD align="right" ><!$MG_TotalTraffic>&nbsp;</TD>
+        </TR>
+      	<TR>
+      		<TD align="right" ><!$MG_TotalTrafficAdmin>&nbsp;</TD>
+        </TR>
+      	<TR>
+      		<TD align="right" ><!$MG_TotalToll>&nbsp;</TD>
+        </TR>
+      	<TR>
+      		<TD align="right" ><!$MG_TotalTollAdmin>&nbsp;</TD>
+        </TR>	
+      	<TR>
+      	 	<TD align="right"><!$MG_TotalDropOff>&nbsp;</TD>	 	
+        </TR>
+      	<TR>
+      	 	<TD align="right"><!$MG_TotalDelivery>&nbsp;</TD>	 	
+        </TR>
+      	<TR>
+      	 	<TD align="right"><!$MG_TotalPickup>&nbsp;</TD>	 	
+        </TR>
+      	<TR>
+      			<TD class="bottomBlueBorder" align="right"><!$MG_TotalReduction>&nbsp;</TD>	 	
+        </TR>
+      	<TR>
+      			<TD align="right"><!$MG_GrossSubTotal>&nbsp;</TD>	 	
+        </TR>
+      	<!$MGIF_ServiceBeforeAfter>
+      	<TR>
+      			<TD align="right" ><!$MG_TotalServiceAmount>&nbsp;</TD>	 	
+        </TR>
+      	<TR>
+      			<TD align="right" class="bottomBlueBorder"><!$MG_TotalVATAmount>&nbsp;</TD>	 	
+        </TR>
+		<!$MGIF_DualVat>
+		<TR>	
+      		    <TD align="right" class="bottomBlueBorder"><!$MG_TotalDualVATAmount>&nbsp;</TD>
+      	</TR>
+		<!$MGENDIF>
+      	<!$MGELSE>
+      	<TR>
+      			<TD align="right" ><!$MG_TotalVATAmount>&nbsp;</TD>	 	
+        </TR>
+		<!$MGIF_DualVat>
+		<TR>	
+      		    <TD align="right" class="bottomBlueBorder"><!$MG_TotalDualVATAmount>&nbsp;</TD>
+      	</TR>
+		<!$MGENDIF>
+      	<TR>
+      			<TD align="right" class="bottomBlueBorder"><!$MG_TotalServiceAmount>&nbsp;</TD>	 	
+        </TR>
+      	<!$MGENDIF>
+      	<TR>
+      			<TD align="right"><!$MG_Total+TaxAmount>&nbsp;</TD>	 	
+        </TR>
+      	<TR>
+      			<TD align="right" class="bottomBlueBorder"><!$MG_TotalPaid>&nbsp;</TD>	 	
+        </TR>
+		<TR id="TotalPaid6" style="display: none">
+      			<TD align="right" class="bottomBlueBorder"><!$MG_TotalPaidAgrInv>&nbsp;</TD>	 	
+        </TR>
+      	<TR>
+        		<TD align="right"><!$MG_TotalBalance>&nbsp;</TD>	 	
+        </TR>
+      	<TR>
+      			<TD align="right"><input type="text" name="PaymentDue" value="<!$MG_PaymentDue>" class="readOnly_textInputField_AmtLr" size="12"  style="text-align: right;" readonly>&nbsp;</TD>	 	
+        </TR>
+      	</TABLE>
+        </div>
+        </TD>
+        <!$MGENDIF>
+    </tr>
+    <!$MGENDIF>  <!--Show Prices End If-->
+    <tr id='PrintP'> <!-- 25/07/07 SNEHA : Added for Hertz Dubai-->
+    <td colspan="4">
+        <table border="0" cellpadding="0" cellspacing="0" summary="" class = "box" width = "100%">
+        <tr>
+            <TD width="">|^Print Price^|<TD>
+            <TD >
+    						<select name="PrintPrice" onchange="UpdatePrintPrice();" class="textInputField_CmbLr">
+                <option value="N"<!$MGIF_selectedPrintPriceN>selected<!$MGENDIF>>|^No^|</option>
+                <option value="Y"<!$MGIF_selectedPrintPriceY>selected<!$MGENDIF>>|^Yes^|</option>				
+                </select>
+            </TD>
+        </TR>
+        </TABLE>
+    </TD>	
+    </tr>
+    <tr>
+    <td colspan="4">
+        <div id="DontPrintButtons">
+        <table border="0" summary="" class = "box" width = "100%">
+        <tr>
+        <TD >
+
+
+        <INPUT class="buttonLGTp4" TYPE="button" NAME="PrintDrv_BT" value="|^Print Drv Calculation^|" onclick="PrintDrv()">
+		<INPUT class="buttonLGTp4" TYPE="button" NAME="PrintDrvSTMT_BT" id="PrintDrvSTMT_BT" style="display:none;" value="|^Statement of Account^|" onclick="PrintStmt()">
+				
+        <!$MGIF_NotDriverAgreement>
+            <INPUT class="buttonLGTp4" TYPE="button" NAME="PrintCust_BT" value="|^Print Cust Calculation^|" onclick="PrintCust()">
+            <INPUT class="buttonLGTp4" TYPE="button" NAME="PrintAll_BT" value="|^Print All Calculation^|" onclick="PrintAll()">
+        <!$MGENDIF>
+
+        <!$MGIF_FrmCheckout>
+				  <!$MGIF_CreateDelEnabled>
+					  <INPUT type="button" class="buttonLGTp4" name="CreateDeliveryPickup_Btn"  value="|^Create Delivery^|" onClick="javascript:createDelivery();" disabled="true">
+				  <!$MGENDIF>
+            <!$MGIF_NotExchange>								
+            <INPUT TYPE="button" class="buttonLGTp4" NAME="Save_BT" value="|^Save Agreement^|" onclick="Save_BTonclick()">
+            <!$MGENDIF>			
+
+            <!$MGIF_ShowCancelButton>
+            <!$MGELSE>
+            <INPUT class="buttonLGTp4"  type="button" name="CancelBT" id="CancelBT" value="|^Cancel Agreement^|" onclick="cancelagreement()" >
+            <!$MGENDIF>	
+
+            <!$MGIF_NotExchange>	
+            <!-- <INPUT type="button" class="buttonLGTp4" name="Modify_Bt" value="|^Modify Agreement^|" 	onclick="javascript:location.href='/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=AgreementModify&Arguments=-A<!$MG_UserName>,-A<!$MG_DocumentNo>,-N<!$MG_BranchCode>,-A,-A';"> -->
+            <INPUT type="button" class="buttonLGTp4" name="Modify_Bt" value="|^Modify Agreement^|" 	onclick="javascript:location.href='/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=CallDocumnetLogAftModify&Arguments=-A<!$MG_UserName>,-A<!$MG_DocumentNo>,-N<!$MG_BranchCode>,-A,-A';">
+            <!$MGENDIF>
+
+            <INPUT TYPE="button" class="buttonMdTp4" NAME="Print_BT" value="|^Print^|"  <!$MGIF_NotExchange>disabled="true" <!$MGENDIF> onclick="Print_BTonclick()">			
+        
+            <!$MGIF_CourtesyDisabled>
+            <!$MGELSE>
+
+                <!$MGIF_ShowPayment>
+								
+               <!--<!$MGIF_NotStrong><!$MGENDIF> Driver Payment is enabled for Security (Strong-140)-->
+			   <INPUT TYPE="button" class="buttonLGTp4" NAME="Payment_BT" value="|^Driver Payment^|"  onclick="Payment('D')" <!$MGIF_NotComp124> <!$MGIF_NotExchange>disabled="true" <!$MGENDIF> <!$MGIF_NotBranchMonthly>disabled="true" <!$MGENDIF>>
+			   <!$MGENDIF>
+					
+					<!$MGIF_ForAltayar>
+					</td>
+					</tr>
+					<tr></tr>
+					<tr>
+					<td>	
+					<!$MGENDIF>
+					
+					
+                    <!$MGIF_CustomerAgr>
+                    <INPUT TYPE="button" class="buttonLGTp4" NAME="Customer_Payment_BT" value="|^Customer Payment^|" onclick="Payment('C')" <!$MGIF_NotExchange>disabled="true" <!$MGENDIF>>
+                    <!$MGENDIF>
+                <!$MGENDIF>
+		
+            <!$MGENDIF>
+
+        <!$MGENDIF>
+
+      <!$MGIF_FromCheckIn>
+          <!$MGIF_ShowPayment>
+			<!--<!$MGIF_NotStrong><!$MGENDIF>Driver Payment Enabled for Security (Stron- 140)-->
+          <INPUT TYPE="button" class="buttonLGTp4" NAME="Payment_BT" value="|^Driver Payment^|"  onclick="Payment('D')"  <!$MGIF_NothERTZdUB><!$MGIF_NotComp124><!$MGIF_NotBranchMonthly>disabled="true" <!$MGENDIF><!$MGENDIF><!$MGENDIF>>
+		  
+		  
+					<!$MGIF_ForAltayar>
+					</td>
+					</tr>
+					<tr></tr>
+					<tr>
+					<td>	
+					<!$MGENDIF>
+					
+					<INPUT TYPE="button" class="buttonLGTp4" NAME="Customer_Payment_BT" value="|^Customer Payment^|" onclick="Payment('C')" >
+          <!$MGENDIF>				
+      <!$MGENDIF>		
+
+
+
+      <!$MGIF_ShowPrintDamages>
+          <INPUT TYPE="button" class="buttonLGTp4" NAME="PrintDamages_BT1" <!$MGIF_NotExchange>value="|^Damages Report^|"<!$MGELSE>value="|^Damages Report Old^|" <!$MGENDIF>onclick="ViewDamages('<!$MG_UnitNo1>','I')">
+
+          <!$MGIF_Exchange>
+              <INPUT TYPE="button" class="buttonLGTp4" NAME="PrintDamages_BT2" value="|^Damages Report New^|" onclick="ViewDamages('<!$MG_UnitNo2>','O')">
+          <!$MGENDIF>
+
+      <!$MGENDIF>		
+
+  		
+      <!-- <INPUT TYPE="button" class="buttonLrTp4" NAME="Inv_BT" value="|^All Invoices^|" onclick="RemarkPopup(6);" >  -->
+	  
+	   <INPUT TYPE="button" class="buttonLrTp4" NAME="Inv_BT" value="|^All Invoices^|" <!$MGIF_HertzDisplay> onclick="ViewAllInvoices();" <!$MGELSE> onclick="RemarkPopup(6);" <!$MGENDIF> > 
+	  
+			<INPUT TYPE="button" class="buttonLGTp4" NAME="BMB_BT"  id="BMB_BT" value="|^Branch Monthly Billing^|" onclick="BMBPopup();" disabled="true" >
+
+					<!$MGIF_ForAltayar>
+					</td>
+					</tr>
+					<tr></tr>
+					<tr>
+					<td>	
+					<!$MGENDIF>
+								
+<!$MGIF_NotStrong>
+	<INPUT TYPE="button" class="buttonLGTp4" NAME="DPB_BT"  id="DPB_BT" value="|^Driver PreBilling^|" onclick="DPBPopup();" disabled >
+	<!$MGENDIF>
+			<INPUT TYPE="button" class="buttonLGTp4" NAME="AgrSub_BT" value="|^Agreement Sub Extras^|" disabled="true" onclick="SubExtrasInVentory();">
+	
+	<INPUT TYPE="button" class="buttonLGTp4" NAME="Nego_BT"  id="Nego_BT"  value="|^Negotiation^|"  onclick="NegotiationScreen();">
+	
+						<INPUT TYPE="button" class="buttonLGTp4" NAME="Sign_BT"  id="Sign_BT" value="|^Signature^|"  onclick="SignatureScreen();">
+<INPUT TYPE="button" class="buttonLGTp4" NAME="PrExtn_BT" id="PrExtn_BT" value="|^Print Extended^|"  onclick="PrintExtended();">
+<INPUT TYPE="button" class="buttonLGTp4" NAME="PrExtn_BT_Exc" value="|^Print Exchange^|"  onclick="PrintExchange();">
+<INPUT TYPE="button" class="buttonMdTp4" NAME="ManualAgrCorr"  id="ManualAgrCorr" value="|^Manual Agr^|"  onclick="ManualAgrCorr1();" >
+<INPUT TYPE="button" class="buttonMdTp4"  NAME="UpDocs" id="UpDocs" value="Upload Documents" disabled="true" onclick="UploadDocs();">
+					
+					<!$MGIF_ForAltayar>
+					</td>
+					</tr>
+					<tr></tr>
+					<tr>
+					<td>	
+					<!$MGENDIF>
+					
+<!$MGIF_NotCompany135>
+ <INPUT TYPE="button" class="buttonMdTp4"  NAME="SendSMS_BT" id="SendSMS_BT" value="|^Send SMS^|" onclick="javascript:CallSendSMS();"  >	
+ <!$MGELSE>
+ <INPUT TYPE="button" class="buttonMdTp4"  NAME="SendSMS_BT" id="SendSMS_BT" value="|^Send SMS^|" onclick="javascript:CallSendSMS();" <!$MGIF_Exchange><!$MGELSE>disabled="true"<!$MGENDIF>>	
+ <!$MGENDIF>
+ <INPUT TYPE="button" class="buttonMdTp4" NAME="SendMail_BT" value="|^Send Mail^|"  onclick="sendMail();" <!$MGIF_Exchange><!$MGELSE>disabled="true"<!$MGENDIF>>
+ 
+ <!$MGIF_Company88>
+<INPUT TYPE="button" class="buttonLGTp4"  NAME="SendSMS_BT1" id="SendSMS_BT1" value="|^View Import Reservation^|" onclick="javascript:CallViewImport();">	
+<!$MGENDIF>
+
+
+ <!$MGIF_FrmCheckout>
+	<!$MGIF_ALLOWCHKLIST>
+ <INPUT TYPE="button" class="buttonMdTp4"  NAME="VehChkList_BT" id="VehChkList_BT" value="|^CheckList^|" onclick="javascript:CallVehChkList();">
+ <!$MGENDIF>
+ <!$MGIF_HertzEnhancement>
+ <INPUT TYPE="button" class="buttonMdTp4" disabled  NAME="EmailDocument" id="EmailDocument" style="width:100px" value="|^Email Document^|" onclick="javascript:EmailDoc();">	
+ <!$MGENDIF>
+<!$MGENDIF>
+<INPUT TYPE="button" class="buttonLGTp4"  NAME="InsUpDocs" id="InsUpDocs" style="display:none;" value="Upload Insurance Document"  onclick="InsUploadDocs();">
+ 
+
+      <!$MGIF_FromCheckIn>
+          <INPUT type="button" class="buttonMdTp4" name="Invoice_BT" value="|^Invoice^|" onclick="ProceedClick();"> 
+		  <INPUT type="button" class="buttonLGTp4" style="display:none" name="CloseTajeerContract" id="CloseTajeerContract" value="|^Close Tajeer Contract^|" onclick="javascript:NewWin('/Tajeer.Server/CloseContract.aspx?AgreementNo='+document.getElementById('DocumentNo').value,'','','left=120,top=40,height=625,width=920,resizable=1,scrollbars=1');"/>
+      <!$MGENDIF>
+
+	  <!$MGIF_AllowKeyOI>
+ <INPUT TYPE="button"  class="buttonLGTp4" disabled NAME="KeyAndOI" id="KeyAndOI" value="|^Key & Other Items Delivery^|" onclick="javascript:OpenKeyDelivery();">
+ <!$MGENDIF>
+<<<<<<< .mine
+ <INPUT TYPE="button"  class="buttonLGTp4" id="SaveContract_BT" name="SaveContract_BT"  value="Tajeer Agreement"  onclick="SaveContractReq()" >
+||||||| .r48682
+ <!-- <INPUT TYPE="button"  class="buttonLGTp4" id="SaveContract_BT" name="SaveContract_BT"  value="Tajeer Agreement"  onclick="SaveContractReq()" style="display:none"> -->
+=======
+ <INPUT TYPE="button"  class="buttonLGTp4" id="SaveContract_BT" name="SaveContract_BT"  value="Tajeer Agreement"  onclick="SaveContractReq()" style="display:none">
+>>>>>>> .r48841
+			</td>
+  		<td align = "right">
+
+      <!$MGIF_FromCheckIn>
+          <!--  <INPUT type="button" class="buttonLGTp4" name="Back_BT" value="|^Back^|" onClick="location.href='/Magic94Scripts/mgrqispi94.dll?APPNAME=RentProWeb&PRGNAME=U:\RentproV10Dev\Wwwroot\EngDev\Agreement\agreement_price.html&ARGUMENTS=-A,-A,-A,-N<!$MG_DocumentNo>'" disabled>  -->
+          <INPUT type="button" class="buttonMdTp3" name="Back_BT" value="|^Back^|" onclick="javascript:location.href='/Magic94Scripts/mgrqispi94.dll?appname=RentProWeb&prgName=CallDocumnetLogAftModify&Arguments=-A<!$MG_UserName>,-A<!$MG_DocumentNo>,-N<!$MG_BranchCode>,-A1,-A';" disabled>
+          <INPUT type="button" class="buttonMdTp3" name="Cancel_BT" value="|^Cancel^|" onClick="location.href='/Magic94Scripts/mgrqispi94.dll?APPNAME=RentProWeb&PRGNAME=RollbackCheckIn&ARGUMENTS=-N<!$MG_DocumentNo>';" disabled>
+      <!$MGENDIF>
+      <INPUT type="button" class="buttonMdTp3" name="Close_Btn"  value="|^Close^|" onClick="javascript:close_function();">
+
+
+                      </td>
+                  </tr>
+                  </TABLE>
+    
+	</div>
+				 
+         </td>
+    </tr>
+    </table>
+    </td>
+    <td valign="top" class="RightBorder"></td>							
+</tr>
+<tr>
+    <td valign="top" class="BottomLeftCorner"></td>
+    <td  valign="top" class="BottomBorder"><!--DWLayoutEmptyCell--></td>
+    <td valign="top" class="BottomRightCorner"></td>      
+</tr>
+</TABLE>
+
+<div  id="Extras" class="xstooltip" >
+<div id='s1' style="overflow: auto;   height: 305;border-color:none; padding:0px; margin: 0px;background-color:#efefef;">
+<table id="Table" border="1"  width="100%" cellpadding="0" cellspacing="0" >
+<tr >
+<td <!$MGIF_ForVWFS1>colspan="9"<!$MGELSE> colspan="8" <!$MGENDIF>background="/EngDev/Images94/mainWindow/window_header_bg.jpg" style="color: #FFFFFF; border:none;	font-weight: bold;" >|^Extra For Agreement^|</td>
+<td align="right"  onclick="HideToolTipWindow('Extras');" style="curosr:hand;border:none;" background="/EngDev/Images94/mainWindow/window_header_bg.jpg"><img src="/EngDev/Images94/collapse.gif" alt="Close" onclick="HideToolTipWindow('Extras')"></td>
+</tr>
+<tr style="color :#ffffff;	 	background-color:#003366; font-size:12px;">
+		 <TH>|^Sub Agreement^|</TH>
+		 <TH>|^Extra^|</TH>
+ 		 <TD >|^Unit^|</TD>		 
+		 <TH>|^Quantity^|</TH>
+		 <TH>|^From Date^|</TH>
+		 <TH>|^To Date^|</TH>
+		 <TH>|^Total^|</TH>
+		 <TH>|^Rate Per Unit^|</TH>
+		 <!$MGIF_ForVWFS1><TH>|^Vat %^|</TH><!$MGENDIF>
+		 <TH>|^Sum^|</TH>
+</tr>
+<!$MGREPEAT>
+<!$MGIF_ExtraTotalZero>
+<tr style="font-size:12px;">
+	     <TD >&nbsp;<!$MG_ExtraSubAgreement></TD>
+		 <TD >&nbsp;<!$MG_ExtraCode></TD>
+ 		 <TD >&nbsp;<!$MG_ExtUnit></TD>		 
+		 <TD >&nbsp;<!$MG_Quantity></TD>
+		 <TD >&nbsp;<!$MG_FromDate></TD>
+		 <TD >&nbsp;<!$MG_Todate></TD>
+ 		 <TD >&nbsp;<!$MG_Total></TD>
+ 		 <TD >&nbsp;<!$MG_RatePerUnit></TD>		 
+ 		 <!$MGIF_ForVWFS><TD >&nbsp;<!$MG_ExtVat></TD>		<!$MGENDIF> 
+		 <TD >&nbsp;<!$MG_Sum></TD>
+</tr>
+<!$MGENDIF>
+<!$MGENDREPEAT>
+</table>
+</div>
+</div>
+
+<div id="Insurance" class="xstooltip" >
+<div id='s1' style="overflow: auto;   height: 305;border-color:none; padding:0px; margin: 0px;background-color:#efefef;">
+<table id="Table" border="1"  width="100%" cellpadding="0" cellspacing="0" >
+<tr >
+<td colspan="6" background="/EngDev/Images94/mainWindow/window_header_bg.jpg" style="color: #FFFFFF; border:none;	font-weight: bold;" >|^Insurances For Agreement^|</td>
+<td align="right"  onclick="HideToolTipWindow('Insurance');" style="curosr:hand;border:none;" background="/EngDev/Images94/mainWindow/window_header_bg.jpg"><img src="/EngDev/Images94/collapse.gif" alt="Close" onclick=""></td>
+</tr>
+<tr style="color :#ffffff;	 	background-color:#003366; font-size:12px;">
+		 <TH>|^Code^|</TH>
+		 <TH>|^Sum^|</TH>
+		 <TH>|^VAT^|</TH>
+		 <TH>|^Rate/Day^|</TH>
+		 <TH>|^Rate Per Add.Day^|</TH>
+		 <TH>|^Deductible^|</TH>
+		 <TH>|^N.W.Deductible^|</TH>
+</tr>
+<!$MGREPEAT>
+<tr style="font-size:12px;">
+		 <TD><!$MG_InsCode>&nbsp;</TD>
+		 <TD><!$MG_InsSum>&nbsp;</TD>
+		 <TD><!$MG_InsVAT>&nbsp;</TD>
+		 <TD><!$MG_InsRate/Day>&nbsp;</TD>
+		 <TD><!$MG_InsRatePerAdd.Day>&nbsp;</TD>
+		 <TD><!$MG_InsDeductible>&nbsp;</TD>
+		 <TD><!$MG_InsN.W.Deductible>&nbsp;</TD>
+</tr>
+<!$MGENDREPEAT>
+</table>
+</div>
+</div>
+
+
+
+
+
+
+<div id="Others" class="xstooltip" >
+<div id='s1' style="overflow: auto;   height: 305;border-color:none; padding:0px; margin: 0px;background-color:#efefef;">
+<table id="Table" border="1"  width="100%" cellpadding="0" cellspacing="0" >
+<tr >
+<td colspan="5" background="/EngDev/Images94/mainWindow/window_header_bg.jpg" style="color: #FFFFFF; border:none;	font-weight: bold;" >|^Expenses For Agreement^|</td>
+<td align="right"  onclick="HideToolTipWindow('Others');" style="curosr:hand;border:none;" background="/EngDev/Images94/mainWindow/window_header_bg.jpg"><img src="/EngDev/Images94/collapse.gif" alt="Close" onclick=""></td>
+</tr>
+<tr style="color :#ffffff;	 	background-color:#003366; font-size:12px;">
+		 <TH>|^Expense Type^|</TH>
+		 <TH>|^Document No^|</TH>
+		 <TH>|^Date^|</TH>	 
+		 <TH>|^Amount^|</TH>
+</tr>
+<!$MGREPEAT>
+<tr style="font-size:12px;">
+		 <TD><!$MG_ExpType></TD>
+		 <TD><!$MG_ExpDocNo></TD>
+		 <TD><!$MG_ExpDate></TD>
+		 <TD><!$MG_ExpAmt></TD>
+</tr>
+<!$MGENDREPEAT>
+</table>
+</div>
+</div>
+
+
+<div id="Fuel" class="xstooltip" >
+<div id='s1' style="overflow: auto;   height: 305;border-color:none; padding:0px; margin: 0px;background-color:#efefef;">
+<table id="Table" border="1"  width="100%" cellpadding="0" cellspacing="0" >
+<tr >
+<td colspan="5" background="/EngDev/Images94/mainWindow/window_header_bg.jpg" style="color: #FFFFFF; border:none;	font-weight: bold;" >|^Fuel For Agreement^|</td>
+<td align="right"  onclick="HideToolTipWindow('Fuel');" style="curosr:hand;border:none;" background="/EngDev/Images94/mainWindow/window_header_bg.jpg"><img src="/EngDev/Images94/collapse.gif" alt="Close" onclick=""></td>
+</tr>
+<tr style="color :#ffffff;	 	background-color:#003366; font-size:12px;">
+		 <TH>|^Sub Agreement^|</TH>
+		 <TH>|^Out Fuel^|</TH>
+		 <TH>|^In Fuel^|</TH>
+		 <TH>|^Price Per Liter^|</TH>
+		 <TH>|^Liters^|</TH>
+		 <TH>|^Sum^|</TH>
+</tr>
+<!$MGREPEAT>
+<tr style="font-size:12px;">
+		 <TD><!$MG_FuelSubAgreement></TD>
+		 <TD><!$MG_FuelOutFuel></TD>
+		 <TD><!$MG_FuelInFuel></TD>
+		 <TD><!$MG_FuelPricePerLiter></TD>
+		 <TD><!$MG_FuelLiters></TD>
+		 <TD><!$MG_FuelSum></TD>
+</tr>
+<!$MGIF_ShowFuelPurchase>
+<tr style="font-size:12px;">
+		 <TD><!$MG_FuelpurSubAgreement></TD>
+		 <TD>&nbsp;</TD>
+		 <TD>&nbsp;</TD>
+		 <TD><!$MG_FuelPurPricePerLiter></TD>
+		 <TD><!$MG_FuelpurLiters></TD>
+		 <TD><!$MG_FuelpurSum></TD>
+</tr>
+<!$MGENDIF>
+<!$MGENDREPEAT>
+</table>
+</div>
+</div>
+
+<div id="Traffic" class="xstooltip" >
+<div id='s1' style="overflow: auto;   height: 305;border-color:none; padding:0px; margin: 0px;background-color:#efefef;">
+<table id="Table" border="1"  width="100%" cellpadding="0" cellspacing="0" >
+<tr >
+<td colspan="6" background="/EngDev/Images94/mainWindow/window_header_bg.jpg" style="color: #FFFFFF; border:none;	font-weight: bold;" >|^Traffic Tickets^|</td>
+<td align="right"  onclick="HideToolTipWindow('Traffic');" style="curosr:hand;border:none;" background="/EngDev/Images94/mainWindow/window_header_bg.jpg"><img src="/EngDev/Images94/collapse.gif" alt="Close" onclick=""></td>
+</tr>
+<tr style="color :#ffffff;	 	background-color:#003366; font-size:12px;">
+		 <TH>|^Ticket No^|</TH>
+		 <TH>|^Licence^|</TH>
+		 <TH>|^Date^|</TH>
+		 <TH>|^Time^|</TH>
+		 <TH>|^Amount^|</TH>
+		 <TH>|^Admin fee^|</TH>
+		 <TH>|^Total^|</TH>
+</tr>
+<!$MGREPEAT>
+<tr style="font-size:12px;">
+		 <TD><!$MG_TraffTicketNo></TD>
+		 <TD><!$MG_TraffLicence></TD>
+		 <TD><!$MG_TrafficDate></TD>
+		 <TD><!$MG_TraffTime></TD>
+		 <TD><!$MG_TraffAmount></TD>
+		 <TD><!$MG_TraffAdminFee></TD>
+		 <TD><!$MG_TraffTotal></TD>
+</tr>
+<!$MGENDREPEAT>
+</table>
+</div>
+</div>
+
+
+<div id="AllInvoices" class="xstooltip" >
+<div id='s1' style="overflow: auto;   height: 305;border-color:none; padding:0px; margin: 0px;background-color:#efefef;">
+<table id="Table" border="1"  width="100%" cellpadding="0" cellspacing="0" >
+<tr >
+<td colspan="4" background="/EngDev/Images94/mainWindow/window_header_bg.jpg" style="color: #FFFFFF; border:none;	font-weight: bold;" >|^Invoices^|</td>
+<td align="right"  onclick="HideToolTipWindow('AllInvoices');" style="curosr:hand;border:none;" background="/EngDev/Images94/mainWindow/window_header_bg.jpg"><img src="/EngDev/Images94/collapse.gif" alt="Close" onclick=""></td>
+</tr>
+<tr style="color :#ffffff;	 	background-color:#003366; font-size:12px;">
+		 <TH>|^Invoice No.^|</TH>
+		 <TH>|^Date^|</TH>
+		 <TH>|^Amount^|</TH>
+		 <TH>|^Paid^|</TH>
+		 <TH>|^Apply To Invoice No.^|</TH>
+<!$MGIF_Adjust>	 
+		 <TH>|^Adjustment Reason^|</TH>
+<!$MGENDIF>
+</tr>
+<!$MGREPEAT>
+<!$MGIF_InvHeader>
+<td colspan="5"><b><!$MG_InvoiceType></b></td>
+<!$MGELSE>
+<tr style="font-size:12px;">
+		 <TD><!$MG_Invoice No.></TD>
+		 <TD><!$MG_InvoiceDate></TD>
+		 <TD><!$MG_InvoiceAmount></TD>
+		 <TD><!$MG_InvoicePaid></TD>
+		 <TD><!$MG_Apply To Invoice No.></TD>
+<!$MGIF_AdjustReason>
+		 <TD><!$MG_AdjReason></TD>
+<!$MGENDIF>		 
+</tr>
+<!$MGENDIF>
+<!$MGENDREPEAT>
+</table>
+</div>
+</div>
+
+<div  id="TollFee" class="xstooltip" >
+<div id='s1' style="overflow: auto;   height: 305;border-color:none; padding:0px; margin: 0px;background-color:#efefef;">
+<table id="Table" border="1"  width="100%" cellpadding="0" cellspacing="0" >
+<tr >
+<td colspan="6" background="/EngDev/Images94/mainWindow/window_header_bg.jpg" style="color: #FFFFFF; border:none;	font-weight: bold;" >|^Toll Fee^|</td>
+<td align="right"  onclick="HideToolTipWindow('TollFee');" style="curosr:hand;border:none;" background="/EngDev/Images94/mainWindow/window_header_bg.jpg"><img src="/EngDev/Images94/collapse.gif" alt="Close" onclick=""></td>
+</tr>
+<tr style="color :#ffffff;	 	background-color:#003366; font-size:12px;">
+		 <TH>|^Toll ID^|</TH>
+		 <TH>|^Licence^|</TH>
+		 <TH>|^Date^|</TH>
+		 <TH>|^Time^|</TH>
+		 <TH>|^Amount^|</TH>
+		 <TH>|^Admin fee^|</TH>
+		 <TH>|^Total^|</TH>
+</tr>
+<!$MGREPEAT>
+<tr style="font-size:12px;">
+		 <TD><!$MG_TollID></TD>
+		 <TD><!$MG_TollLicence></TD>
+		 <TD><!$MG_TollDate></TD>
+		 <TD><!$MG_TollTime></TD>
+		 <TD><!$MG_TollAmount></TD>
+		 <TD><!$MG_TollAdminFee></TD>
+		 <TD><!$MG_TollTotal></TD>
+</tr>
+<!$MGENDREPEAT>
+</table>
+</div>
+</div>
+<div  id="PMTOVRem" class="xstooltip" style="width:865px" >
+<div id='s2' style="overflow: auto;border-color:none; padding:0px; margin: 0px;background-color:#efefef;">
+<table id="EnterReason" class="box" border="1"  style="width:865px" cellpadding="0" cellspacing="0" >
+<thead>
+<tr class="screenHighlightRow">
+<td colspan="2" height="26" background="/EngDev/Images94/mainWindow/window_header_bg.jpg" class="screenHighlightRow" nowrap>|^Enter Invoice Remark^|</td>
+</tr>
+</thead>
+<tbody>
+			<TR>
+				<TD >|^Remark^|</TD>
+				<TD >
+				<!--<input type="text" name="Remark" value="" class="textInputFieldLG" style="width:765px"> -->
+
+				<textarea id="InvoiceRemark" name="InvoiceRemark" style="width:765px" rows="6" onkeypress="return checkSpcialChar(event);return imposeMaxLength(this,500);" onblur="return imposeMaxLength(this,500);" onpaste="return false;"><!$MG_InvoiceRemark></textarea>
+				</TD>
+			</TR>
+			<TR>
+				<TD colspan="2" >
+				<!--<input type="text" name="Remark" value="" class="textInputFieldLG" style="width:765px"> -->
+
+				<input type="button" class="buttonMdTp3" name="RemProceed_butt" value="|^Proceed^|" style="width:165px" style="align:right"onclick="CloseAndSubmit()"> 
+				</TD>
+			</TR>
+</tbody>
+</table>
+</div>
+</div>
+</form>
+</BODY>
+<IFRAME src="blank.htm" name="frm_page" id="frm_page" width="0" height="0" marginwidth="0" marginheight="0" scrolling="no" frameborder="0"></IFRAME>
+</HTML>
